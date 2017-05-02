@@ -1,0 +1,5 @@
+venv
+*.iml
+.idea
+config.py
+*.pyc
