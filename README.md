@@ -17,4 +17,6 @@ Installation
 
 Usage Fabric
 -----
-    TBA
+    $ fab develop run # develop server running
+    $ fab develop stop # develop server stop
+    $ fab localhost init_db # initialize database
