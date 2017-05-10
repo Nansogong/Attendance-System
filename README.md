@@ -8,6 +8,7 @@ Requirements
 1. python 3.6+
 1. flask
 1. fabric3
+1. mariadb
 
 Installation
 ----
