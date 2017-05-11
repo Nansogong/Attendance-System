@@ -10,7 +10,6 @@ class User(db.Model):
     id = db.Column(INTEGER(unsigned=True), primary_key=True)
     user_num = db.Column(INTEGER(unsigned=True))  # 학생 번호나 교수님 고유 코드. 실제로 중복되는지 알 수 없어서 유니크 제외. view만 할 듯
     name = db.Column(db.Text)
-    phone_num = db.Column(db.String(255))
     email = db.Column(db.String(255), unique=True)
     password = db.Column(db.Text)
     fingerprint = db.Column(db.String(255))
