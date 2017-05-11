@@ -33,6 +33,7 @@ class Lecture(db.Model):
 
     id = db.Column(INTEGER(unsigned=True), primary_key=True)
     user_id = db.Column(INTEGER(unsigned=True))
+    name = db.Column(db.String(255))
     lecture_code = db.Column(db.String(255))
     lecture_day_id = db.Column(INTEGER(unsigned=True))
     criteriaOfF = db.Column(TINYINT(unsigned=True))
