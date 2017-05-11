@@ -8,7 +8,7 @@ from fabric.tasks import execute
 
 import config
 from app import db
-from models import user
+from models import user, lecture
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 env_name = 'local'
