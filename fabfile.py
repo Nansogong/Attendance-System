@@ -78,4 +78,5 @@ def stop_server():
 def init_db():
     if env_name is not 'local':
         run('echo $DEPLOY')
+    db.drop_all()
     db.create_all()
