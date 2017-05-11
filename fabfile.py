@@ -8,7 +8,7 @@ from fabric.tasks import execute
 
 import config
 from app import db
-from models import user
+from models import user, lecture
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 env_name = 'local'
@@ -78,4 +78,5 @@ def stop_server():
 def init_db():
     if env_name is not 'local':
         run('echo $DEPLOY')
+    db.drop_all()
     db.create_all()
