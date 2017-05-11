@@ -32,7 +32,7 @@ class Lecture(db.Model):
     __tablename__ = 'lecture'
 
     id = db.Column(INTEGER(unsigned=True), primary_key=True)
-    user_id = db.Column(INTEGER(unsigned=True))
+    professor_id = db.Column(INTEGER(unsigned=True))  # user_id 인데 명확하게 표현하기위해서 이름을 바꿈.
     name = db.Column(db.String(255))
     lecture_code = db.Column(db.String(255))
     lecture_day_id = db.Column(INTEGER(unsigned=True))
