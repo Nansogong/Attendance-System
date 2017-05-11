@@ -13,7 +13,7 @@ class User(db.Model):
     email = db.Column(db.String(255), unique=True)
     password = db.Column(db.Text)
     fingerprint = db.Column(db.String(255))
-    lab_id = db.Column(INTEGER(unsigned=True))
+    lab_id = db.Column(INTEGER(unsigned=True), db.ForeignKey("lab.id"))
     type = db.Column(TINYINT(unsigned=True))  # 교수님인지 학생인지 TA인지.. 승인전인지 승인 된건지..!
     created = db.Column(db.DateTime(), default=datetime.now(), index=True)
     # TODO: password hashing
