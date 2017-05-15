@@ -83,3 +83,16 @@ def init_db():
             run('fab {} init_db'.format(env_name))
     db.drop_all()
     db.create_all()
+
+
+@task
+def deploy():
+    with settings(warn_only=True):
+        with cd('Attendance-System'), prefix('source venv/bin/activate'):
+            global env_name
+            env_name = 'master' if env_name == 'live' else env_name
+            run('git checkout -b {}'.format(env_name))
+            run('git pull origin {}'.format(env_name))
+            run('pip install -r requirements.txt')
+            runserver()
+
