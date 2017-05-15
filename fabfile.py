@@ -1,5 +1,7 @@
+from pprint import pprint
+
 import os
-from fabric.context_managers import cd, settings
+from fabric.context_managers import cd, settings, prefix
 from fabric.decorators import task, roles
 
 from fabric.operations import local, run
@@ -7,7 +9,7 @@ from fabric.state import env
 from fabric.tasks import execute
 
 import config
-from app import db
+from app import app, db
 from models import user, lecture
 
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -77,6 +79,7 @@ def stop_server():
 @task
 def init_db():
     if env_name is not 'local':
-        run('echo $DEPLOY')
+        with cd('Attendance-System'), prefix('source venv/bin/activate'):
+            run('fab {} init_db'.format(env_name))
     db.drop_all()
     db.create_all()
