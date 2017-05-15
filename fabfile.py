@@ -7,10 +7,12 @@ from fabric.decorators import task, roles
 from fabric.operations import local, run
 from fabric.state import env
 from fabric.tasks import execute
+from flask_sqlalchemy import SQLAlchemy
 
 import config
-from app import app, db
-from models import user, lecture
+from app import app
+db = SQLAlchemy(app)
+
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 env_name = 'local'
@@ -78,9 +80,12 @@ def stop_server():
 
 @task
 def init_db():
+    import models.user, models.lecture
+
     if env_name is not 'local':
         with cd('Attendance-System'), prefix('source venv/bin/activate'):
             run('fab {} init_db'.format(env_name))
+    pprint(db)
     db.drop_all()
     db.create_all()
 
