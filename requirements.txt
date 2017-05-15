@@ -4,3 +4,4 @@ SQLAlchemy
 Flask-SQLAlchemy
 gunicorn
 mysqlclient
+pytest
