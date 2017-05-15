@@ -96,3 +96,10 @@ def deploy():
             run('pip install -r requirements.txt')
             runserver()
 
+
+@task
+@roles('localhost')
+def test():
+    with settings(warn_only=True):
+        with prefix('source venv/bin/activate'):
+            local('pytest tests/')
