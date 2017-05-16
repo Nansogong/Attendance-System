@@ -18,22 +18,3 @@ def test_create_user(session):
     assert user.create()
 
 
-@pytest.fixture(scope='function')
-def session():
-    from models.user import db
-
-    """Creates a new database session for a test."""
-    connection = db.engine.connect()
-    transaction = connection.begin()
-
-    options = dict(bind=connection, binds={})
-    session = db.create_scoped_session(options=options)
-
-    db.session = session
-
-    def teardown():
-        transaction.rollback()
-        connection.close()
-        session.remove()
-
-    return session
