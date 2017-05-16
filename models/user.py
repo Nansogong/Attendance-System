@@ -1,12 +1,11 @@
 from datetime import datetime
-
-from flask_sqlalchemy import SQLAlchemy
+from flask import current_app
 from sqlalchemy.dialects.mysql import INTEGER, TINYINT
 from werkzeug.security import generate_password_hash, check_password_hash
 
-from app import app
+from models import db
 
-db = SQLAlchemy(app)
+db.init_app(current_app)
 
 
 class User(db.Model):

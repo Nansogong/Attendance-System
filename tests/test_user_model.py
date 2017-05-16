@@ -1,5 +1,5 @@
 import pytest
-from werkzeug.security import generate_password_hash, check_password_hash
+from app import app  # 지우지 말 것
 
 
 def test_set_check_password():
