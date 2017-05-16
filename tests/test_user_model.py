@@ -19,3 +19,7 @@ def test_create_user(session):
     assert user.id > 0
 
 
+def test_find_user_by_email():
+    from models.user import User
+    user = User.find_by_email(email='test@test.com')
+    assert user.email == 'test@test.com'

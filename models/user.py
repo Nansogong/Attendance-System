@@ -44,6 +44,10 @@ class User(db.Model):
     def __repr__(self):
         return '<User %d>' % self.user_num
 
+    @classmethod
+    def find_by_email(cls, email):
+        return cls.query.filter_by(email=email).first()
+
 
 class Lab(db.Model):
     __tablename__ = 'lab'
