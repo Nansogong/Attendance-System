@@ -21,9 +21,6 @@ class User(db.Model):
     type = db.Column(TINYINT(unsigned=True))  # 교수님인지 학생인지 TA인지.. 승인전인지 승인 된건지..!
     created = db.Column(db.DateTime(), default=datetime.now(), index=True)
 
-    # TODO: password hashing
-    ## http://flask.pocoo.org/snippets/54/
-
     def __init__(self, user_num, name, email, password, fingerprint, type):
         self.user_num = user_num
         self.name = name
@@ -32,6 +29,7 @@ class User(db.Model):
         self.fingerprint = fingerprint
         self.type = type
 
+    # http://flask.pocoo.org/snippets/54/
     def set_password(self, password):
         self.password = generate_password_hash(password)
 
