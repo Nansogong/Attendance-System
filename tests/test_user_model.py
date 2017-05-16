@@ -15,6 +15,7 @@ def test_create_user(session):
     password = 'skagustlfqkqh'
     user = User(user_num=12321312, name='JS Han', email='test@test.com', password=password, fingerprint='12321', type=1)
 
-    assert user.create()
+    user.create()
+    assert user.id > 0
 
 

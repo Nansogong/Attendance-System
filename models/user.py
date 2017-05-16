@@ -37,6 +37,8 @@ class User(db.Model):
         return check_password_hash(self.password, password)
 
     def create(self):
+        db.session.add(self)
+        db.session.commit()
         return True
 
     def __repr__(self):
