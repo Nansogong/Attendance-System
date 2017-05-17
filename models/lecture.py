@@ -1,8 +1,11 @@
 from datetime import datetime
 
+from flask import current_app
 from sqlalchemy.dialects.mysql import INTEGER, TINYINT
 
-from app import db
+from models import db
+
+db.init_app(current_app)
 
 
 class Lecture(db.Model):

@@ -8,8 +8,7 @@ import config
 deploy = os.getenv('DEPLOY', 'local').title()
 app = Flask(__name__)
 app.config.from_object('config.{}Config'.format(deploy))
-
-db = SQLAlchemy(app)
+app.app_context().push()
 
 from views import website
 
