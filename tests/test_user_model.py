@@ -21,5 +21,19 @@ def test_create_user(session):
 
 def test_find_user_by_email():
     from models.user import User
-    user = User.find_by_email(email='test@test.com')
+    email = 'test@test.com'
+    user = User.find_by_email(email=email)
+
     assert user.email == 'test@test.com'
+
+
+def test_find_by_email_and_password():
+    from models.user import User
+
+    email = 'test@test.com'
+    password = 'skagustlfqkqh'
+
+    user = User.find_by_email_and_password(email=email, password=password)
+
+    assert user.email == email
+    assert user.check_password(password)

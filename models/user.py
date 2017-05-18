@@ -48,6 +48,14 @@ class User(db.Model):
     def find_by_email(cls, email):
         return cls.query.filter_by(email=email).first()
 
+    @classmethod
+    def find_by_email_and_password(cls, email, password):
+        user = cls.find_by_email(email)
+        if not user:
+            return None
+        if not user.check_password(password):
+            return None
+        return user
 
 class Lab(db.Model):
     __tablename__ = 'lab'
