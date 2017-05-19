@@ -81,6 +81,7 @@ def stop_server():
 @task
 def init_db():
     import models.user, models.lecture
+    from models import db
 
     if env_name is not 'local':
         with cd('Attendance-System'), prefix('source venv/bin/activate'):
