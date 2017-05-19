@@ -52,135 +52,131 @@
 </nav>
 
 
-교수id (preference에서 가져오고)
+<!--교수id (preference에서 가져오고)-->
+
+<form class="form-horizontal">
+    <fieldset>
+        <legend>강의등록</legend>
+        <div class="form-group">
+            <label for="input_lecture_name" class="col-xs-2 col-sm-4 col-md-5 col-lg-5 control-label">강의 이름</label>
+            <div class="col-xs-9 col-sm-5 col-md-3 col-lg-3">
+                <input type="text" class="form-control" id="input_lecture_name" placeholder="강의 이름을 입력하세요">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="input_lecture_code" class="col-xs-2 col-sm-4 col-md-5 col-lg-5 control-label">학수 코드</label>
+            <div class="col-xs-9 col-sm-5 col-md-3 col-lg-3">
+                <input type="text" class="form-control" id="input_lecture_code" placeholder="학수 코드를 입려하세요">
+            </div>
+        </div>
 
 
-<article>
-    <form class="form-horizontal">
-        <fieldset>
-            <legend>강의등록</legend>
-            <p>
-                * 실습등록도 같은 방식으로 등록해야 합니다.<br/>
-            </p>
-            <div class="form-group">
-                <label for="input_lecture_name" class="col-lg-2 control-label">강의 이름</label>
-                <div class="col-lg-10">
-                    <input type="text" class="form-control" id="input_lecture_name" placeholder="강의 이름을 입력하세요">
+        <div class="form-group">
+            <label class="col-xs-2 col-sm-4 col-md-5 col-lg-5 control-label">일주일에 수업이 몇 번?</label>
+            <div class="col-xs-9 col-sm-5 col-md-3 col-lg-3">
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="lecture_amount_radio" id="lecture_amount_radio1" value="option1"
+                               checked="checked">
+                        1번
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="lecture_amount_radio" id="lecture_amount_radio2" value="option2">
+                        2번
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="lecture_amount_radio" id="lecture_amount_radio3" value="option3">
+                        3번
+                    </label>
                 </div>
             </div>
-            <div class="form-group">
-                <label for="input_lecture_code" class="col-lg-2 control-label">학수 코드</label>
-                <div class="col-lg-10">
-                    <input type="text" class="form-control" id="input_lecture_code" placeholder="학수 코드를 입려하세요">
+        </div>
+
+
+        <div class="form-group">
+            <label class="col-xs-2 col-sm-4 col-md-5 col-lg-5 control-label">몇 시간짜리 수업입니까?</label>
+            <div class="col-xs-9 col-sm-5 col-md-3 col-lg-3">
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1"
+                               checked="checked">
+                        1시간 30분
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                        2시간
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">
+                        2시간 30분
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="optionsRadios" id="optionsRadios4" value="option4">
+                        3시간
+                    </label>
                 </div>
             </div>
+        </div>
 
-
-            <div class="form-group">
-                <label class="col-lg-2 control-label">일주일에 수업이 몇 번?</label>
-                <div class="col-lg-10">
-                    <div class="radio">
-                        <label>
-                            <input type="radio" name="lecture_amount_radio" id="lecture_amount_radio1" value="option1"
-                                   checked="checked">
-                            1번
-                        </label>
-                    </div>
-                    <div class="radio">
-                        <label>
-                            <input type="radio" name="lecture_amount_radio" id="lecture_amount_radio2" value="option2">
-                            2번
-                        </label>
-                    </div>
-                    <div class="radio">
-                        <label>
-                            <input type="radio" name="lecture_amount_radio" id="lecture_amount_radio3" value="option3">
-                            3번
-                        </label>
-                    </div>
-                </div>
+        <!--요일-->
+        <div class="form-group">
+            <label for="select_day" class="col-xs-2 col-sm-4 col-md-5 col-lg-5 control-label">요일</label>
+            <div class="col-xs-9 col-sm-5 col-md-3 col-lg-3">
+                <select class="form-control" id="select_day">
+                    <option>월</option>
+                    <option>화</option>
+                    <option>수</option>
+                    <option>목</option>
+                    <option>금</option>
+                </select>
             </div>
+        </div>
 
-
-            <div class="form-group">
-                <label class="col-lg-2 control-label">몇 시간짜리 수업입니까?</label>
-                <div class="col-lg-10">
-                    <div class="radio">
-                        <label>
-                            <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1"
-                                   checked="checked">
-                            1시간 30분
-                        </label>
-                    </div>
-                    <div class="radio">
-                        <label>
-                            <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-                            2시간
-                        </label>
-                    </div>
-                    <div class="radio">
-                        <label>
-                            <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">
-                            2시간 30분
-                        </label>
-                    </div>
-                    <div class="radio">
-                        <label>
-                            <input type="radio" name="optionsRadios" id="optionsRadios4" value="option4">
-                            3시간
-                        </label>
-                    </div>
-                </div>
+        <!--시간-->
+        <div class="form-group">
+            <label for="select_hour" class="col-xs-2 col-sm-4 col-md-5 col-lg-5 control-label">시작 시간</label>
+            <div class="col-xs-9 col-sm-5 col-md-3 col-lg-3">
+                <select class="form-control" id="select_hour">
+                    <option>9</option>
+                    <option>10</option>
+                    <option>11</option>
+                    <option>12</option>
+                    <option>13</option>
+                </select>
             </div>
+        </div>
 
-            <!--요일-->
-            <div class="form-group">
-                <label for="select_day" class="col-lg-2 control-label">요일</label>
-                <div class="col-lg-10">
-                    <select class="form-control" id="select_day">
-                        <option>월</option>
-                        <option>화</option>
-                        <option>수</option>
-                        <option>목</option>
-                        <option>금</option>
-                    </select>
-                </div>
+        <!--분-->
+        <div class="form-group">
+            <label for="select_min" class="col-xs-2 col-sm-4 col-md-5 col-lg-5 control-label">분</label>
+            <div class="col-xs-9 col-sm-5 col-md-3 col-lg-3">
+                <select class="form-control" id="select_min">
+                    <option>00</option>
+                    <option>30</option>
+                </select>
             </div>
-
-            <!--시간-->
-            <div class="form-group">
-                <label for="select_hour" class="col-lg-2 control-label">시작 시간</label>
-                <div class="col-lg-10">
-                    <select class="form-control" id="select_hour">
-                        <option>9</option>
-                        <option>10</option>
-                        <option>11</option>
-                        <option>12</option>
-                        <option>13</option>
-                    </select>
-                </div>
+        </div>
+        <div class="form-group">
+            <label for="input_lecture_name" class="col-xs-11 col-sm-9 col-md-8 col-lg-8 control-label">* 실습등록도 같은 방식으로
+                등록해야 합니다.</label>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-10 col-xs-offset-2 col-sm-offset-4 col-md-offset-5 col-lg-offset-5">
+                <button type="reset" class="btn btn-default">Cancel</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
             </div>
-
-            <!--분-->
-            <div class="form-group">
-                <label for="select_min" class="col-lg-2 control-label">분</label>
-                <div class="col-lg-10">
-                    <select class="form-control" id="select_min">
-                        <option>00</option>
-                        <option>30</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-lg-10 col-lg-offset-2">
-                    <button type="reset" class="btn btn-default">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
-            </div>
-        </fieldset>
-    </form>
-</article>
-
+        </div>
+    </fieldset>
+</form>
 </body>
 </html>

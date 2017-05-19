@@ -51,58 +51,53 @@
         </div>
     </div>
 </nav>
-
-<article>
-    <form>
-        <fieldset>
-            <legend>강의 찾기</legend>
-            <div class="form-group">
-
-                <div class="col-lg-10" id="search_text">
-                    <input type="text" class="form-control" placeholder="Search">
-                </div>
-                <div class="col-lg-10" id="test_case">
-                    <button type="submit" class="btn btn-default" >search</button>
-                </div>
-                <!--<div class="col-lg-10">-->
-                    <!--<button type="submit" class="btn btn-default">search</button>-->
-                <!--</div>-->
+<form class="form-horizontal">
+    <fieldset>
+        <legend>강의 찾기</legend>
+        <div class="form-group">
+            <label for="search_area" class="col-xs-2 col-sm-4 col-md-5 col-lg-5 control-label">
+            </label>
+            <div class="col-xs-7 col-sm-5 col-md-3 col-lg-3 control-label">
+                <input type="text" class="form-control" id="search_area" placeholder="Search">
             </div>
-            <div class="form-group">
-                <label for="select" class="col-lg-2 control-label">강의를 찾아 선택하세요</label>
-                <div class="col-lg-10">
-                    <select multiple="" class="form-control" id="select">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                    </select>
-                </div>
+            <div>
+                <button type="button" class="btn btn-default">search</button>
             </div>
-        </fieldset>
-    </form>
-    <div class="form-group">
-        <div class="col-lg-10 col-lg-offset-2">
-            <button type="reset" class="btn btn-default">뒤로 가기</button>
-            <button type="submit" class="btn btn-primary">강의 신청</button>
         </div>
+        <div class="form-group">
+            <label for="select" class="col-xs-2 col-sm-4 col-md-5 col-lg-5 control-label">강의를 찾아 선택하세요</label>
+            <div class="col-xs-9 col-sm-5 col-md-3 col-lg-3">
+                <select multiple="" class="form-control" id="select">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
+            </div>
+        </div>
+    </fieldset>
+</form>
+<div class="form-group">
+    <div class="col-lg-10 col-xs-offset-2 col-sm-offset-4 col-md-offset-5 col-lg-offset-5">
+        <button type="reset" class="btn btn-default">뒤로 가기</button>
+        <button type="submit" class="btn btn-primary">강의 신청</button>
     </div>
-</article>
+</div>
 </body>
 </html>
