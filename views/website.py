@@ -29,3 +29,29 @@ def login():
 
         session['email'] = email
         return redirect('/')
+
+
+@mod.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'GET':
+        return render_template('register.html', title='Register')
+    elif request.method == 'POST':
+        user_num = request.form.get('user_num', None)
+        name = request.form.get('name', None)
+        email = request.form.get('email', None)
+        password = request.form.get('password', None)
+        fingerprint = request.form.get('fingerprint', None)
+        type = request.form.get('type', None)
+
+        if User.find_by_email(email):
+            flash('이미 가입된 이메일입니다.', 'error')
+            return redirect('/register')
+        elif User.find_by_user_num(user_num):
+            flash('이미 가입된 학번입니다 ㅠㅠ', 'error')
+            return redirect('/register')
+
+        user = User(user_num=user_num, name=name, email=email, password=password, fingerprint=fingerprint, type=type)
+
+        user.create()
+
+        return redirect('/login')

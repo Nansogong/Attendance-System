@@ -45,3 +45,67 @@ def test_login_post_fail():
         assert not session.get('email', None)
         assert b'email' in res.data
         assert b'password' in res.data
+
+
+def test_register_get():
+    mod = app.test_client()
+    res = mod.get('register')
+
+    assert res.status_code == 200
+    assert b'user_num' in res.data
+    assert b'name' in res.data
+    assert b'email' in res.data
+    assert b'password' in res.data
+
+
+def test_register_post_success():
+    with app.test_client() as mod:
+        from models.user import User
+        user_num = 2015000000
+        name = 'Hsil Nam'
+        email = 'hsilnam3@test.com'
+        password = 'sksthrhd'
+        fingerprint = '123456'
+        type = 1
+
+        res = mod.post('register', data=dict(
+            user_num=user_num,
+            name=name,
+            email=email,
+            password=password,
+            fingerprint=fingerprint,
+            type=type
+        ), follow_redirects=True)
+
+        assert res.status_code == 200
+        assert b'email' in res.data
+        assert b'password' in res.data
+        assert not b'user_num' in res.data
+        assert not b'name' in res.data
+        assert User.find_by_email(email)
+        assert User.find_by_user_num(user_num)
+
+
+def test_register_post_fail():
+    with app.test_client() as mod:
+
+        user_num = 12321312  # 학번이 중복되었을 경우
+        name = 'Hsil Nam'
+        email = 'test@test.com'  # 이메일이 중복되었을 경우
+        password = 'sksthrhd'
+        fingerprint = '123456'
+        type = 1
+
+        res = mod.post('register', data=dict(
+            user_num=user_num,
+            name=name,
+            email=email,
+            password=password,
+            fingerprint=fingerprint,
+            type=type
+        ), follow_redirects=True)
+
+        assert b'email' in res.data
+        assert b'password' in res.data
+        assert b'user_num' in res.data
+        assert b'name' in res.data

@@ -45,6 +45,10 @@ class User(db.Model):
         return '<User %d>' % self.user_num
 
     @classmethod
+    def find_by_user_num(cls, user_num):
+        return cls.query.filter_by(user_num=user_num).first()
+
+    @classmethod
     def find_by_email(cls, email):
         return cls.query.filter_by(email=email).first()
 
