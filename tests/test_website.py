@@ -86,7 +86,7 @@ def test_register_post_success():
         assert User.find_by_user_num(user_num)
 
 
-def test_register_post_fail():
+def test_register_post_overlap_fail():
     with app.test_client() as mod:
 
         user_num = 12321312  # 학번이 중복되었을 경우
@@ -94,6 +94,31 @@ def test_register_post_fail():
         email = 'test@test.com'  # 이메일이 중복되었을 경우
         password = 'sksthrhd'
         fingerprint = '123456'
+        type = 1
+
+        res = mod.post('register', data=dict(
+            user_num=user_num,
+            name=name,
+            email=email,
+            password=password,
+            fingerprint=fingerprint,
+            type=type
+        ), follow_redirects=True)
+
+        assert b'email' in res.data
+        assert b'password' in res.data
+        assert b'user_num' in res.data
+        assert b'name' in res.data
+
+
+def test_register_post_blank_fail():
+    with app.test_client() as mod:
+
+        user_num = 2014
+        name = ''
+        email = 'fds'
+        password = 'as'
+        fingerprint = 'as'
         type = 1
 
         res = mod.post('register', data=dict(

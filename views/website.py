@@ -43,7 +43,10 @@ def register():
         fingerprint = request.form.get('fingerprint', None)
         type = request.form.get('type', None)
 
-        if User.find_by_email(email):
+        if user_num is None or name == '' or email == '' or password == '' or fingerprint == '' or type is None:
+            flash('작성되지 않은 필드가 있습니다.', 'error')
+            return redirect('/register')
+        elif User.find_by_email(email):
             flash('이미 가입된 이메일입니다.', 'error')
             return redirect('/register')
         elif User.find_by_user_num(user_num):
