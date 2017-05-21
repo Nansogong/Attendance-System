@@ -12,7 +12,7 @@ Requirements
 Installation
 ----
 	$ python -m venv venv # virtualenv has to locate this project's root directory.
-	$ activate venv/bin/activate #if you use mac or linux
+	$ source venv/bin/activate #if you use mac or linux
 	$ pip install -r requirements.txt
 
 Usage Fabric

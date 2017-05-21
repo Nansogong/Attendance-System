@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-<link rel="stylesheet" href="../static/css/bootstrap.css"/>
-<link rel="stylesheet" href="../static/css/login.css"/>
 <head>
     <meta charset="UTF-8">
-    <title>login</title>
+    <link rel="stylesheet" href="../static/css/bootstrap.css"/>
+    <link rel="stylesheet" href="../static/css/search_lecture.css"/>
+    <title>search_lecture</title>
 </head>
 <body>
+
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -50,33 +51,53 @@
         </div>
     </div>
 </nav>
-
 <form class="form-horizontal">
     <fieldset>
+        <legend>강의 찾기</legend>
         <div class="form-group">
-            <!--<label for="inputID" class="col-lg-2 control-label">ID</label>-->
-            <label for="input_email" class="col-xs-2 col-sm-4 col-md-5 col-lg-5 control-label">email</label>
-            <!--<div class="col-lg-10">-->
-            <div class="col-xs-9 col-sm-5 col-md-3 col-lg-3">
-                <input type="text" class="form-control" id="input_email" placeholder="아이디를 입력하세요" size="20">
+            <label for="search_area" class="col-xs-2 col-sm-4 col-md-5 col-lg-5 control-label">
+            </label>
+            <div class="col-xs-7 col-sm-5 col-md-3 col-lg-3 control-label">
+                <input type="text" class="form-control" id="search_area" placeholder="Search">
+            </div>
+            <div>
+                <button type="button" class="btn btn-default">search</button>
             </div>
         </div>
         <div class="form-group">
-            <label for="input_password" class="col-xs-2 col-sm-4 col-md-5 col-lg-5 control-label">password</label>
+            <label for="select" class="col-xs-2 col-sm-4 col-md-5 col-lg-5 control-label">강의를 찾아 선택하세요</label>
             <div class="col-xs-9 col-sm-5 col-md-3 col-lg-3">
-                <input type="password" class="form-control" id="input_password" placeholder="Password를 입력하세요">
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-lg-10 col-xs-offset-2 col-sm-offset-4 col-md-offset-5 col-lg-offset-5">
-                <button type="button" class="btn btn-primary">로그인</button>
-                <button type="button" class="btn btn-default">회원가입</button>
+                <select multiple="" class="form-control" id="select">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
             </div>
         </div>
     </fieldset>
 </form>
-
-<script src="../static/js/jquery-1.12.4.js"></script>
-<script src="../static/js/bootstrap.js"></script>
+<div class="form-group">
+    <div class="col-lg-10 col-xs-offset-2 col-sm-offset-4 col-md-offset-5 col-lg-offset-5">
+        <button type="reset" class="btn btn-default">뒤로 가기</button>
+        <button type="submit" class="btn btn-primary">강의 신청</button>
+    </div>
+</div>
 </body>
 </html>
