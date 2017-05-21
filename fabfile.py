@@ -11,7 +11,6 @@ from flask_sqlalchemy import SQLAlchemy
 
 import config
 from app import app
-db = SQLAlchemy(app)
 
 
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -81,11 +80,12 @@ def stop_server():
 @task
 def init_db():
     import models.user, models.lecture
+    from models import db
 
     if env_name is not 'local':
         with cd('Attendance-System'), prefix('source venv/bin/activate'):
             run('fab {} init_db'.format(env_name))
-    pprint(db)
+
     db.drop_all()
     db.create_all()
 
