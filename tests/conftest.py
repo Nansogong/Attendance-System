@@ -18,3 +18,12 @@ def session():
     connection.close()
     session.remove()
 
+
+@pytest.fixture(scope='module')
+def create_user_first():
+    from models.user import User
+    password = 'alskdjfhghfj'
+    user = User(user_num=1234321, name='Pro fessor', email='professor@professor.com', password=password,
+                fingerprint='13531', type=User.PROFESSOR_TYPE)
+    user.create()
+    yield user
