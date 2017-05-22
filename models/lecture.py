@@ -12,21 +12,50 @@ class Lecture(db.Model):
     __tablename__ = 'lecture'
 
     id = db.Column(INTEGER(unsigned=True), primary_key=True)
-    professor_id = db.Column(INTEGER(unsigned=True))  # user_id 인데 명확하게 표현하기위해서 이름을 바꿈.
+    professor_id = db.Column(INTEGER(unsigned=True), db.ForeignKey("user.id"))  # user_id 인데 명확하게 표현하기위해서 이름을 바꿈.
     name = db.Column(db.String(255))
     lecture_code = db.Column(db.String(255))
     lecture_day_id = db.Column(INTEGER(unsigned=True))
-    criteriaOfF = db.Column(TINYINT(unsigned=True))
+    criteria_of_F = db.Column(TINYINT(unsigned=True), default=3)
     created = db.Column(db.DateTime(), default=datetime.now(), index=True)
+
+    def __init__(self, professor_id, name, lecture_code, lecture_day_id, criteria_of_F=3):
+        self.professor_id = professor_id
+        self.name = name
+        self.lecture_code = lecture_code
+        self.lecture_day_id = lecture_day_id
+        self.criteria_of_F = criteria_of_F
+
+    def create(self):
+        db.session.add(self)
+        db.session.commit()
+        return True
 
 
 class LectureDay(db.Model):
     __tablename__ = 'lecture_day'
 
+    MON = 1
+    TUE = 2
+    WED = 3
+    TEU = 4
+    FRI = 5
+    SAT = 6
+
     id = db.Column(INTEGER(unsigned=True), primary_key=True)
-    start = db.Column(db.DateTime)
+    start = db.Column(db.Time)
     time = db.Column(INTEGER(unsigned=True))
     day = db.Column(TINYINT(unsigned=True))
+
+    def __init__(self, start, time, day):
+        self.start = start
+        self.time = time
+        self.day = day
+
+    def create(self):
+        db.session.add(self)
+        db.session.commit()
+        return True
 
 
 class AttendanceManagement(db.Model):
