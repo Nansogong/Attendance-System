@@ -88,7 +88,6 @@ def test_register_post_success():
 
 def test_register_post_overlap_fail():
     with app.test_client() as mod:
-
         user_num = 12321312  # 학번이 중복되었을 경우
         name = 'Hsil Nam'
         email = 'test@test.com'  # 이메일이 중복되었을 경우
@@ -113,7 +112,6 @@ def test_register_post_overlap_fail():
 
 def test_register_post_blank_fail():
     with app.test_client() as mod:
-
         user_num = 2014
         name = ''
         email = 'fds'
@@ -134,3 +132,52 @@ def test_register_post_blank_fail():
         assert b'password' in res.data
         assert b'user_num' in res.data
         assert b'name' in res.data
+
+
+def test_create_lecture_success(create_user_first):
+    with app.test_client() as mod:
+        professor_id = create_user_first.id
+        name = 'Computer Structure'
+        lecture_code = 20543
+        start = '14:30'
+        time = 90
+        day = 2
+
+        res = mod.post('create_lecture', data=dict(
+            professor_id=professor_id,
+            name=name,
+            lecture_code=lecture_code,
+            start=start,
+            time=time,
+            day=day
+        ), follow_redirects=True)
+
+        assert b'list' in res.data
+        assert b'profile' in res.data
+        assert b'logout' in res.data
+
+
+def test_create_lecture_blank_fail(create_user_first):
+    with app.test_client() as mod:
+        professor_id = create_user_first.id
+        name = ''
+        lecture_code = 20543
+        start = '14:30'
+        time = 90
+        day = 2
+
+        res = mod.post('create_lecture', data=dict(
+            professor_id=professor_id,
+            name=name,
+            lecture_code=lecture_code,
+            start=start,
+            time=time,
+            day=day
+        ), follow_redirects=True)
+
+        assert b'name' in res.data
+        assert b'lecture_code' in res.data
+        assert b'start' in res.data
+        assert b'time' in res.data
+        assert not b'lab' in res.data
+        assert not b'logout' in res.data
