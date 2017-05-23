@@ -19,8 +19,8 @@ def session():
     session.remove()
 
 
-@pytest.fixture(scope='module')
 def create_user_first():
+@pytest.fixture(scope='session')
     from models.user import User
     password = 'alskdjfhghfj'
     user = User(user_num=1234321, name='Pro fessor', email='professor@professor.com', password=password,
