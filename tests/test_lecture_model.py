@@ -8,8 +8,8 @@ def test_create_lecture_day():
     assert lecture_day.id > 0
 
 
-def test_create_lecture(create_user_first):
+def test_create_lecture(user):
     from models.lecture import Lecture
-    lecture = Lecture(professor_id=create_user_first.id, name="sogong", lecture_code="asdffda", lecture_day_id=1)
+    lecture = Lecture(professor_id=user.id, name="sogong", lecture_code="asdffda", lecture_day_id=1)
     lecture.create()
     assert lecture.id > 0

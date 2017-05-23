@@ -134,9 +134,9 @@ def test_register_post_blank_fail():
         assert b'name' in res.data
 
 
-def test_create_lecture_success(create_user_first):
+def test_create_lecture_success(user):
     with app.test_client() as mod:
-        professor_id = create_user_first.id
+        professor_id = user.id
         name = 'Computer Structure'
         lecture_code = 20543
         start = '14:30'
@@ -157,9 +157,9 @@ def test_create_lecture_success(create_user_first):
         assert b'logout' in res.data
 
 
-def test_create_lecture_blank_fail(create_user_first):
+def test_create_lecture_blank_fail(user):
     with app.test_client() as mod:
-        professor_id = create_user_first.id
+        professor_id = user.id
         name = ''
         lecture_code = 20543
         start = '14:30'
