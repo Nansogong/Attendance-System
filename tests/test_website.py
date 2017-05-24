@@ -80,8 +80,8 @@ def test_register_post_success():
         assert res.status_code == 200
         assert b'email' in res.data
         assert b'password' in res.data
-        assert not b'user_num' in res.data
-        assert not b'name' in res.data
+        assert b'user_num' not in res.data
+        assert b'name' not in res.data
         assert User.find_by_email(email)
         assert User.find_by_user_num(user_num)
 
@@ -143,7 +143,7 @@ def test_create_lecture_success(user):
         time = 90
         day = 2
 
-        res = mod.post('create_lecture', data=dict(
+        res = mod.post('/lectures/create', data=dict(
             professor_id=professor_id,
             name=name,
             lecture_code=lecture_code,
@@ -167,7 +167,6 @@ def test_create_lecture_blank_fail(user):
         day = 2
 
         res = mod.post('create_lecture', data=dict(
-            professor_id=professor_id,
             name=name,
             lecture_code=lecture_code,
             start=start,
@@ -179,5 +178,31 @@ def test_create_lecture_blank_fail(user):
         assert b'lecture_code' in res.data
         assert b'start' in res.data
         assert b'time' in res.data
-        assert not b'lab' in res.data
-        assert not b'logout' in res.data
+        assert b'lab' not in res.data
+        assert b'logout' not in res.data
+
+
+def test_create_lecture_not_professor_fail(user):
+    with app.test_client() as mod:
+        professor_id = user.id
+        name = 'Computer Architecture'
+        lecture_code = 20543
+        start = '14:30'
+        time = 90
+        day = 2
+
+        res = mod.post('create_lecture', data=dict(
+            professor_id=professor_id,
+            name=name,
+            lecture_code=lecture_code,
+            start=start,
+            time=time,
+            day=day
+        ), follow_redirects=True)
+
+        assert b'list' in res.data
+        assert b'logout' in res.data
+        assert b'profile' in res.data
+        assert b'lecture_code' not in res.data
+        assert b'start' not in res.data
+        assert b'time' not in res.data
