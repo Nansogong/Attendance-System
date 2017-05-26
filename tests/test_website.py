@@ -1,9 +1,25 @@
 import pytest
-from flask import session
+import sys
 
-from app import app
+if sys.version_info >= (3, 6):
+    try:
+        from app import app  # 지우지 말 것
+    except ModuleNotFoundError as e:
+        import os
+        myPath = os.path.dirname(os.path.abspath(__file__))
+        sys.path.insert(0, myPath + '/../')
+        from app import app
+else:
+    try:
+        from app import app  # 지우지 말 것
+    except ImportError as e:
+        import os
+        myPath = os.path.dirname(os.path.abspath(__file__))
+        sys.path.insert(0, myPath + '/../')
+        from app import app
 
 from views import website
+from flask import session
 
 
 def test_home():
