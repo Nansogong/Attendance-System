@@ -1,0 +1,30 @@
+language: python
+python:
+- '3.5'
+- 3.5-dev
+- '3.6'
+- 3.6-dev
+env:
+- DEPLOY=TEST
+services:
+- mysql
+install: pip install -r requirements.txt
+script:
+- fab localhost init_db
+- pytest tests/
+before_install:
+- mysql -e 'CREATE DATABASE IF NOT EXISTS attendance_system;'
+- openssl aes-256-cbc -K $encrypted_cfd433a023ff_key -iv $encrypted_cfd433a023ff_iv
+  -in config.py.enc -out config.py -d
+
+deploy:
+  # deploy develop to the staging environment
+  - provider: script
+    script: fab develop deploy
+    on:
+      branch: develop
+  # deploy master to production
+  - provider: script
+    script: fab live deploy
+    on:
+      branch: master
