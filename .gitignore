@@ -3,4 +3,5 @@ venv
 *.iml
 .idea
 config.py
+travis-sandbox
 *.pyc
