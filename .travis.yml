@@ -19,6 +19,7 @@ before_install:
 
 deploy:
   # deploy develop to the staging environment
+  - skip_cleanup: true
   - provider: script
     script: fab develop deploy
     on:
