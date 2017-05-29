@@ -27,3 +27,11 @@ def user():
                 fingerprint='13531', type=User.PROFESSOR_TYPE)
     _user.create()
     yield _user
+
+
+@pytest.fixture(scope='session')
+def lecture(user):
+    from models.lecture import Lecture
+    _lecture = Lecture(professor_id=user.id, name="SWE", lecture_code="12364")
+    _lecture.create()
+    yield _lecture

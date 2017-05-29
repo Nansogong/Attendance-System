@@ -11,5 +11,4 @@ def login_required(test):
         else:
             flash('You need to login first.')
             return redirect('/login')
-
     return wrap

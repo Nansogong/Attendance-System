@@ -1,9 +1,25 @@
 import pytest
-from flask import session
+import sys
 
-from app import app
+if sys.version_info >= (3, 6):
+    try:
+        from app import app  # 지우지 말 것
+    except ModuleNotFoundError as e:
+        import os
+        myPath = os.path.dirname(os.path.abspath(__file__))
+        sys.path.insert(0, myPath + '/../')
+        from app import app
+else:
+    try:
+        from app import app  # 지우지 말 것
+    except ImportError as e:
+        import os
+        myPath = os.path.dirname(os.path.abspath(__file__))
+        sys.path.insert(0, myPath + '/../')
+        from app import app
 
 from views import website
+from flask import session
 
 
 def test_home():
@@ -132,9 +148,6 @@ def test_register_post_blank_fail():
         assert b'password' in res.data
         assert b'user_num' in res.data
         assert b'name' in res.data
-
-
-def test_create_lecture_success(user):
 # def test_create_lecture_success(user):
 #     with app.test_client() as mod:
 #         professor_id = user.id
@@ -207,74 +220,3 @@ def test_create_lecture_success(user):
 #         assert b'lecture_code' not in res.data
 #         assert b'start' not in res.data
 #         assert b'time' not in res.data
-    with app.test_client() as mod:
-        professor_id = user.id
-        name = 'Computer Structure'
-        lecture_code = 20543
-        start = '14:30'
-        time = 90
-        day = 2
-
-        res = mod.post('/lectures/create', data=dict(
-            professor_id=professor_id,
-            name=name,
-            lecture_code=lecture_code,
-            start=start,
-            time=time,
-            day=day
-        ), follow_redirects=True)
-
-        assert b'list' in res.data
-        assert b'profile' in res.data
-        assert b'logout' in res.data
-
-
-def test_create_lecture_blank_fail(user):
-    with app.test_client() as mod:
-        professor_id = user.id
-        name = ''
-        lecture_code = 20543
-        start = '14:30'
-        time = 90
-        day = 2
-
-        res = mod.post('create_lecture', data=dict(
-            name=name,
-            lecture_code=lecture_code,
-            start=start,
-            time=time,
-            day=day
-        ), follow_redirects=True)
-
-        assert b'name' in res.data
-        assert b'lecture_code' in res.data
-        assert b'start' in res.data
-        assert b'time' in res.data
-        assert b'lab' not in res.data
-        assert b'logout' not in res.data
-
-
-def test_create_lecture_not_professor_fail(user):
-    with app.test_client() as mod:
-        professor_id = user.id
-        name = 'Computer Architecture'
-        lecture_code = 20543
-        start = '14:30'
-        time = 90
-        day = 2
-
-        res = mod.post('create_lecture', data=dict(
-            professor_id=professor_id,
-            name=name,
-            lecture_code=lecture_code,
-            start=start,
-            time=time,
-            day=day
-        ), follow_redirects=True)
-
-        assert b'list' in res.data
-        assert b'logout' in res.data
-        assert b'profile' in res.data
-        assert b'lecture_code' not in res.data
-        assert b'start' not in res.data
-        assert b'time' not in res.data
