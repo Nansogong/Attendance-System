@@ -149,4 +149,15 @@ def test_register_post_blank_fail():
         assert b'email' in res.data
         assert b'password' in res.data
         assert b'user_num' in res.data
-        assert b'name' in res.data
+        assert b'name' in res.datadef test_admin_login_get():
+    with app.test_client() as mod:
+        email = 'nansogong'
+        password = 'sksthrhd'
+        res = mod.post('login', data=dict(
+            email=email,
+            password=password
+        ), follow_redirects=True)
+
+        assert res.status_code == 200
+        assert b'admin' in res.data
+        assert b'accept_professor' in res.data
