@@ -161,3 +161,12 @@ def test_register_post_blank_fail():
         assert res.status_code == 200
         assert b'admin' in res.data
         assert b'accept_professor' in res.data
+
+
+def test_admin_accept_professor_get():
+    with app.test_client() as mod:
+        res = mod.get('/admin/accept')
+
+        assert b'professor' in res.data
+        assert b'accept' in res.data
+        assert b'reject' in res.data
