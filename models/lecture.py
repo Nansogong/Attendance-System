@@ -15,15 +15,13 @@ class Lecture(db.Model):
     professor_id = db.Column(INTEGER(unsigned=True), db.ForeignKey("user.id"))  # user_id 인데 명확하게 표현하기위해서 이름을 바꿈.
     name = db.Column(db.String(255))
     lecture_code = db.Column(db.String(255))
-    lecture_day_id = db.Column(INTEGER(unsigned=True))
     criteria_of_F = db.Column(TINYINT(unsigned=True), default=3)
     created = db.Column(db.DateTime(), default=datetime.now(), index=True)
 
-    def __init__(self, professor_id, name, lecture_code, lecture_day_id, criteria_of_F=3):
+    def __init__(self, professor_id, name, lecture_code, criteria_of_F=3):
         self.professor_id = professor_id
         self.name = name
         self.lecture_code = lecture_code
-        self.lecture_day_id = lecture_day_id
         self.criteria_of_F = criteria_of_F
 
     def create(self):
@@ -43,14 +41,16 @@ class LectureDay(db.Model):
     SAT = 6
 
     id = db.Column(INTEGER(unsigned=True), primary_key=True)
+    lecture_id = db.Column(INTEGER(unsigned=True), db.ForeignKey("lecture.id"))
     start = db.Column(db.Time)
     time = db.Column(INTEGER(unsigned=True))
     day = db.Column(TINYINT(unsigned=True))
 
-    def __init__(self, start, time, day):
+    def __init__(self, start, time, day, lecture_id):
         self.start = start
         self.time = time
         self.day = day
+        self.lecture_id = lecture_id
 
     def create(self):
         db.session.add(self)
