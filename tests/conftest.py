@@ -23,7 +23,15 @@ def session():
 def create_user_first():
     from models.user import User
     password = 'alskdjfhghfj'
-    user = User(user_num=1234321, name='Pro fessor', email='professor@professor.com', password=password,
+    _user = User(user_num=1234321, name='Pro fessor', email='professor@professor.com', password=password,
                 fingerprint='13531', type=User.PROFESSOR_TYPE)
-    user.create()
-    yield user
+    _user.create()
+    yield _user
+
+
+@pytest.fixture(scope='session')
+def lecture(user):
+    from models.lecture import Lecture
+    _lecture = Lecture(professor_id=user.id, name="SWE", lecture_code="12364")
+    _lecture.create()
+    yield _lecture
