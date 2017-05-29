@@ -1,13 +1,24 @@
 from flask import render_template, Blueprint, request, redirect, session, flash
 
 from models.user import User
+from views.decorator import login_required
 
 mod = Blueprint('website', __name__)
 
 
+admin_id = 'nansogong'
+admin_password = 'sksthrhd'
+
+
+@login_required
 @mod.route('/')
 def home():
     return render_template('index.html', title='Nansogong')
+
+
+@mod.route('/admin', methods=['GET'])
+def admin():
+    return render_template('admin.html', title = 'Admin')
 
 
 @mod.route('/login', methods=['GET', 'POST'])
@@ -20,6 +31,9 @@ def login():
     elif request.method == 'POST':
         email = request.form.get('email', None)
         password = request.form.get('password', None)
+
+        if email == 'nansogong' and password == 'sksthrhd':
+            return redirect('/admin')
 
         user = User.find_by_email_and_password(email=email, password=password)
 
