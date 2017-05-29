@@ -21,6 +21,12 @@ def admin():
     return render_template('admin.html', title = 'Admin')
 
 
+@mod.route('/admin/accept', methods=['GET', 'POST'])
+def accept_professor():
+    if request.method == 'GET':
+        return render_template('accept_professor.html', title='Accept')
+
+
 @mod.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'GET':
