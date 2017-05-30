@@ -80,7 +80,6 @@ def create_lecture():
     elif request.method == 'POST':
         name = request.form.get('name', None)
         lecture_code = request.form.get('lecture_code', None)
-        lecture_day_id = request.form.get('lecture_day_id', None)
         criteria_of_F = request.form.get('criteria_of_F', None)
         start = request.form.get('start', None)
         time = request.form.get('time', None)
@@ -94,11 +93,15 @@ def create_lecture():
 
         lecture_day.create()
 
-        lecture = Lecture(professor_id=user.id, name=name, lecture_code=lecture_code, lecture_day_id=lecture_day.id,
+        lecture = Lecture(professor_id=user.id, name=name, lecture_code=lecture_code,
                           criteria_of_F=criteria_of_F)
 
         lecture.create()
 
+        lecture_day = LectureDay(start=start, time=time, day=day, lecture_id=lecture.id)
+
+        lecture_day.create()
+        
         return redirect('/lectures')
 
 
