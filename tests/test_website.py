@@ -1,33 +1,16 @@
 import pytest
 import sys
 
-if sys.version_info >= (3, 6):
-    try:
-        from app import app  # 지우지 말 것
-    except ModuleNotFoundError as e:
-        import os
-        myPath = os.path.dirname(os.path.abspath(__file__))
-        sys.path.insert(0, myPath + '/../')
-        from app import app
-else:
-    try:
-        from app import app  # 지우지 말 것
-    except ImportError as e:
-        import os
-        myPath = os.path.dirname(os.path.abspath(__file__))
-        sys.path.insert(0, myPath + '/../')
-        from app import app
-
-from views import website
+from app import app
 from flask import session
+from views import website
 
 
 def test_home():
     pass
 
 
-def test_login_get():
-    mod = app.test_client()
+def test_login_get(mod):
     res = mod.get('login')
 
     assert res.status_code == 200
@@ -63,8 +46,7 @@ def test_login_post_fail():
         assert b'password' in res.data
 
 
-def test_register_get():
-    mod = app.test_client()
+def test_register_get(mod):
     res = mod.get('register')
 
     assert res.status_code == 200
