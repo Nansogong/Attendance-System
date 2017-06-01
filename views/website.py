@@ -95,6 +95,10 @@ def create_lecture():
             flash('작성되지 않은 필드가 있습니다.', 'error')
             return redirect('/lectures/create')
 
+        lecture_day = LectureDay(start=start, time=time, day=day)
+
+        lecture_day.create()
+
         lecture = Lecture(professor_id=user.id, name=name, lecture_code=lecture_code,
                           criteria_of_F=criteria_of_F)
 
@@ -103,7 +107,7 @@ def create_lecture():
         lecture_day = LectureDay(start=start, time=time, day=day, lecture_id=lecture.id)
 
         lecture_day.create()
-
+        
         return redirect('/lectures')
 
 

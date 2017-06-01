@@ -147,3 +147,55 @@ def test_register_post_blank_fail():
         assert b'password' in res.data
         assert b'user_num' in res.data
         assert b'name' in res.data
+
+
+def test_create_lecture_get(mod, login_user):
+    from models.user import User
+
+    res = mod.get('/lectures/create', follow_redirects=True)
+
+    if login_user.type == User.PROFESSOR_TYPE:
+        assert res.status_code == 200
+        assert b'create' in res.data
+        assert b'lecture_code' in res.data
+        assert b'time' in res.data
+        assert b'start' in res.data
+
+    if login_user.type != User.PROFESSOR_TYPE:
+        assert res.status_code == 200
+        assert b'list' in res.data
+        assert b'profile' in res.data
+        assert b'logout' in res.data
+
+
+def test_create_lecture(mod, login_user):
+    from models.lecture import LectureDay
+    from models.user import User
+
+    professor_id = login_user.id
+    name = "Software Engineering"
+    lecture_code = "40201"
+    start = "10:30"
+    time = 90
+    day = LectureDay.MON
+
+    res = mod.post('/lectures/create', data=dict(
+        professor_id=professor_id,
+        name=name,
+        lecture_code=lecture_code,
+        start=start,
+        time=time,
+        day=day
+    ), follow_redirects=True)
+
+    if login_user == User.PROFESSOR_TYPE:
+        assert res.status_code == 200
+        assert b'list' in res.data
+        assert b'profile' in res.data
+        assert b'logout' in res.data
+
+    if login_user != User.PROFESSOR_TYPE:
+        assert res.status_code == 200
+        assert b'list' in res.data
+        assert b'profile' in res.data
+        assert b'logout' in res.data
