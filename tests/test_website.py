@@ -170,6 +170,7 @@ def test_create_lecture_get(mod, login_user):
 
 def test_create_lectre(mod, login_user):
     from models.lecture import LectureDay
+    from models.user import User
 
     professor_id = login_user.id
     name = "Software Engineering"
@@ -186,3 +187,15 @@ def test_create_lectre(mod, login_user):
         time=time,
         day=day
     ), follow_redirects=True)
+
+    if login_user == User.PROFESSOR_TYPE:
+        assert res.status_code == 200
+        assert b'list' in res.data
+        assert b'profile' in res.data
+        assert b'logout' in res.data
+
+    if login_user != User.PROFESSOR_TYPE:
+        assert res.status_code == 200
+        assert b'list' in res.data
+        assert b'profile' in res.data
+        assert b'logout' in res.data
