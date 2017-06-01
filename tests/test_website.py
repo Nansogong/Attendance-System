@@ -26,8 +26,7 @@ def test_home():
     pass
 
 
-def test_login_get():
-    mod = app.test_client()
+def test_login_get(mod):
     res = mod.get('login')
 
     assert res.status_code == 200
@@ -63,8 +62,7 @@ def test_login_post_fail():
         assert b'password' in res.data
 
 
-def test_register_get():
-    mod = app.test_client()
+def test_register_get(mod):
     res = mod.get('register')
 
     assert res.status_code == 200
