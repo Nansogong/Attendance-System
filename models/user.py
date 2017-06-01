@@ -10,9 +10,10 @@ db.init_app(current_app)
 
 class User(db.Model):
     __tablename__ = 'user'
+    # bit 연산할 것이라 1,2,4,8으로 진행된다
     PROFESSOR_TYPE = 1
     STUDENT_TYPE = 2
-    TA_TYPE = 3
+    TA_TYPE = 4
 
     id = db.Column(INTEGER(unsigned=True), primary_key=True)
     user_num = db.Column(INTEGER(unsigned=True))  # 학생 번호나 교수님 고유 코드. 실제로 중복되는지 알 수 없어서 유니크 제외. view만 할 듯
