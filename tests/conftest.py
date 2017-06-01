@@ -59,8 +59,13 @@ def login_user(request, mod):
 
 
 @pytest.fixture(scope='session')
-def lecture(user):
+def lecture(login_user):
+    """
+    로그인 된 유저가 강의를 생성합니다.
+    :param login_user:
+    :return: Lecture
+    """
     from models.lecture import Lecture
-    _lecture = Lecture(professor_id=user.id, name="SWE", lecture_code="12364")
+    _lecture = Lecture(professor_id=login_user.id, name="SWE", lecture_code="12364")
     _lecture.create()
     yield _lecture
