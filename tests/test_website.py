@@ -46,6 +46,23 @@ def test_login_post_fail():
         assert b'password' in res.data
 
 
+def test_logout():
+    with app.test_client() as mod:
+        email = 'test@test.com'
+        password = 'skagustlfqkqh'
+
+        res = mod.post('login', data=dict(
+            email=email,
+            password=password
+        ), follow_redirects=True)
+
+        assert session.get('email', None)
+
+        res = mod.get('logout', follow_redirects=True)
+        assert res.status_code == 200
+        assert not session.get('email', None)
+
+
 def test_register_get(mod):
     res = mod.get('register')
 
@@ -86,7 +103,6 @@ def test_register_post_success():
 
 def test_register_post_overlap_fail():
     with app.test_client() as mod:
-
         user_num = 12321312  # 학번이 중복되었을 경우
         name = 'Hsil Nam'
         email = 'test@test.com'  # 이메일이 중복되었을 경우
@@ -111,7 +127,6 @@ def test_register_post_overlap_fail():
 
 def test_register_post_blank_fail():
     with app.test_client() as mod:
-
         user_num = 2014
         name = ''
         email = 'fds'
