@@ -16,3 +16,6 @@ before_install:
 - mysql -e 'CREATE DATABASE IF NOT EXISTS attendance_system;'
 - openssl aes-256-cbc -K $encrypted_cfd433a023ff_key -iv $encrypted_cfd433a023ff_iv
   -in config.py.enc -out config.py -d
+notifications:
+  slack:
+    secure: FdgNr/WhIaUmmrDSKpdZjl8jhej9TdkubR9h2PYe1CYJKSNSBAOBKnoaCjBPbzuaRaLvzIzS5vcevqVoURj6j5IVkvo482o56BaFC8pBxQ9ljbEt3/Nz0GiKKniUE2h+r950MsZ+yOuRryiefpn2u9um3hzUqlF5GSsvyFtYzx6bhxtVw5Mhz+yUTCNgk6D8EpNPWJs0HYz+Wpcd8Z/p4xYjUa6Fsy+iRlsRHprjwhCYlAM8rStWfYI5QbqEasPRYIfCh3o/TPWcxotJn/X/hyvxWX7lhokaRZXgoP+W1zpOOMS4+QvpNV9d1PC4ERhuyryYis2xHTScs4vIAwsZbs6zp/4E0WER3gZWojDe6/PT+vC0gWzbQ7/BiVgo7ND0LLxsjYqXYyIIUJqb2AXTZCpBgcTvFrxtx7Gsp2WSJ1fIZXIKSlhVqT+z1ltXpmGwaGNs7axKw+Xp3vygT00iqrBiHLR6CY0Gg9365s3DXcBjJyR21lBmVEfI+mRPkFI8BDIsBPmI9Jo4h9q96sIW+Ec+a5NBF5MqZDAwBHcDOnCRIPL3xwXJqFFni3U9JtaVsflQhkuVf1+QTl2mEUYKpiapc3M79zyG6IsHMqpq6d/pMIMkJb1e3GGuwA/K0/3GbN+zYNJp2vXkaxwuTeRP2MDx3W326W1+exggyLOadj4=

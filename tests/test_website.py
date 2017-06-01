@@ -1,33 +1,16 @@
 import pytest
 import sys
 
-if sys.version_info >= (3, 6):
-    try:
-        from app import app  # 지우지 말 것
-    except ModuleNotFoundError as e:
-        import os
-        myPath = os.path.dirname(os.path.abspath(__file__))
-        sys.path.insert(0, myPath + '/../')
-        from app import app
-else:
-    try:
-        from app import app  # 지우지 말 것
-    except ImportError as e:
-        import os
-        myPath = os.path.dirname(os.path.abspath(__file__))
-        sys.path.insert(0, myPath + '/../')
-        from app import app
-
-from views import website
+from app import app
 from flask import session
+from views import website
 
 
 def test_home():
     pass
 
 
-def test_login_get():
-    mod = app.test_client()
+def test_login_get(mod):
     res = mod.get('login')
 
     assert res.status_code == 200
@@ -63,8 +46,24 @@ def test_login_post_fail():
         assert b'password' in res.data
 
 
-def test_register_get():
-    mod = app.test_client()
+def test_logout():
+    with app.test_client() as mod:
+        email = 'test@test.com'
+        password = 'skagustlfqkqh'
+
+        res = mod.post('login', data=dict(
+            email=email,
+            password=password
+        ), follow_redirects=True)
+
+        assert session.get('email', None)
+
+        res = mod.get('logout', follow_redirects=True)
+        assert res.status_code == 200
+        assert not session.get('email', None)
+
+
+def test_register_get(mod):
     res = mod.get('register')
 
     assert res.status_code == 200
@@ -96,8 +95,8 @@ def test_register_post_success():
         assert res.status_code == 200
         assert b'email' in res.data
         assert b'password' in res.data
-        assert b'user_num' not in res.data
-        assert b'name' not in res.data
+        assert not b'user_num' in res.data
+        assert not b'name' in res.data
         assert User.find_by_email(email)
         assert User.find_by_user_num(user_num)
 
@@ -148,75 +147,3 @@ def test_register_post_blank_fail():
         assert b'password' in res.data
         assert b'user_num' in res.data
         assert b'name' in res.data
-# def test_create_lecture_success(user):
-#     with app.test_client() as mod:
-#         professor_id = user.id
-#         name = 'Computer Structure'
-#         lecture_code = 20543
-#         start = '14:30'
-#         time = 90
-#         day = 2
-#
-#         res = mod.post('/lectures/create', data=dict(
-#             professor_id=professor_id,
-#             name=name,
-#             lecture_code=lecture_code,
-#             start=start,
-#             time=time,
-#             day=day
-#         ), follow_redirects=True)
-#
-#         assert b'list' in res.data
-#         assert b'profile' in res.data
-#         assert b'logout' in res.data
-#
-#
-# def test_create_lecture_blank_fail(user):
-#     with app.test_client() as mod:
-#         professor_id = user.id
-#         name = ''
-#         lecture_code = 20543
-#         start = '14:30'
-#         time = 90
-#         day = 2
-#
-#         res = mod.post('create_lecture', data=dict(
-#             name=name,
-#             lecture_code=lecture_code,
-#             start=start,
-#             time=time,
-#             day=day
-#         ), follow_redirects=True)
-#
-#         assert b'name' in res.data
-#         assert b'lecture_code' in res.data
-#         assert b'start' in res.data
-#         assert b'time' in res.data
-#         assert b'lab' not in res.data
-#         assert b'logout' not in res.data
-#
-#
-# def test_create_lecture_not_professor_fail(user):
-#     with app.test_client() as mod:
-#         professor_id = user.id
-#         name = 'Computer Architecture'
-#         lecture_code = 20543
-#         start = '14:30'
-#         time = 90
-#         day = 2
-#
-#         res = mod.post('create_lecture', data=dict(
-#             professor_id=professor_id,
-#             name=name,
-#             lecture_code=lecture_code,
-#             start=start,
-#             time=time,
-#             day=day
-#         ), follow_redirects=True)
-#
-#         assert b'list' in res.data
-#         assert b'logout' in res.data
-#         assert b'profile' in res.data
-#         assert b'lecture_code' not in res.data
-#         assert b'start' not in res.data
-#         assert b'time' not in res.data
