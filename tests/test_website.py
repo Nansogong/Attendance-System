@@ -168,7 +168,7 @@ def test_create_lecture_get(mod, login_user):
         assert b'logout' in res.data
 
 
-def test_create_lectre(mod, login_user):
+def test_create_lecture(mod, login_user):
     from models.lecture import LectureDay
     from models.user import User
 
