@@ -27,7 +27,7 @@ def test_set_check_password():
     assert user.check_password(password)
 
 
-def test_create_user(session):
+def test_create_user():
     from models.user import User
     password = 'skagustlfqkqh'
     user = User(user_num=12321312, name='JS Han', email='test@test.com', password=password, fingerprint='12321', type=User.STUDENT_TYPE)
