@@ -1,6 +1,7 @@
 import pytest
 import sys
 
+
 def test_create_lecture(login_user):
     from flask import session
     from models.lecture import Lecture
