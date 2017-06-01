@@ -38,6 +38,12 @@ def login():
         return redirect('/')
 
 
+@mod.route('/logout', methods=['GET'])
+def logout():
+    session.clear()
+    return redirect('/')
+
+
 @mod.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'GET':
