@@ -24,7 +24,7 @@ def login():
         email = request.form.get('email', None)
         password = request.form.get('password', None)
 
-        if (email == 'nansogong' and password == 'sksthrhd'):
+        if email == 'nansogong' and password == 'sksthrhd':
             session['email'] = 'admin'
             return redirect('/admin')
 
