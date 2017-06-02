@@ -232,7 +232,7 @@ def test_create_lecture_code_dup_fail(mod, login_user):
 
     professor_id = login_user.id
     name = "Logics"
-    lecture_code = "40201"
+    lecture_code = "12365"
     start = "15:00"
     time = 90
     day = LectureDay.WED
