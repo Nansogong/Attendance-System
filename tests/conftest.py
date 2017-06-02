@@ -10,13 +10,13 @@ def session():
     transaction = connection.begin()
 
     options = dict(bind=connection, binds={})
-    session = db.create_scoped_session(options=options)
+    _session = db.create_scoped_session(options=options)
 
-    db.session = session
+    db.session = _session
     yield
     transaction.rollback()
     connection.close()
-    session.remove()
+    _session.remove()
 
 
 @pytest.fixture(scope='session')
