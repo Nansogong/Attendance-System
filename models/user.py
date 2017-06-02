@@ -13,6 +13,8 @@ class User(db.Model):
     PROFESSOR_TYPE = 1
     STUDENT_TYPE = 2
     TA_TYPE = 3
+    ACCEPTED_PROFESSOR_TYPE = 8
+    REJECTED_PROFESSOR_TYPE = 16
 
     id = db.Column(INTEGER(unsigned=True), primary_key=True)
     user_num = db.Column(INTEGER(unsigned=True))  # 학생 번호나 교수님 고유 코드. 실제로 중복되는지 알 수 없어서 유니크 제외. view만 할 듯
@@ -63,6 +65,10 @@ class User(db.Model):
         if not user.check_password(password):
             return None
         return user
+
+    @classmethod
+    def get_all_filter_by_type(cls, type):
+        return cls.query.filter_by(type=type).all()
 
 
 class Lab(db.Model):
