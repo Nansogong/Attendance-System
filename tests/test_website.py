@@ -162,10 +162,7 @@ def test_create_lecture_get(mod, login_user):
         assert b'start' in res.data
 
     if not (login_user.type & User.PROFESSOR_TYPE):
-        assert res.status_code == 200
-        assert b'list' in res.data
-        assert b'profile' in res.data
-        assert b'logout' in res.data
+        assert res.status_code == 403
 
 
 def test_create_lecture(mod, login_user):
@@ -188,17 +185,14 @@ def test_create_lecture(mod, login_user):
         day=day
     ), follow_redirects=True)
 
-    if login_user == User.PROFESSOR_TYPE:
+    if login_user.type & User.PROFESSOR_TYPE:
         assert res.status_code == 200
         assert b'list' in res.data
         assert b'profile' in res.data
         assert b'logout' in res.data
 
-    if login_user != User.PROFESSOR_TYPE:
-        assert res.status_code == 200
-        assert b'list' in res.data
-        assert b'profile' in res.data
-        assert b'logout' in res.data
+    if not (login_user.type & User.PROFESSOR_TYPE):
+        assert res.status_code == 403
 
 
 def test_create_lecture_time_format_fail(mod, login_user):
