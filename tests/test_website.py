@@ -154,14 +154,14 @@ def test_create_lecture_get(mod, login_user):
 
     res = mod.get('/lectures/create', follow_redirects=True)
 
-    if login_user.type == User.PROFESSOR_TYPE:
+    if login_user.type & User.PROFESSOR_TYPE:
         assert res.status_code == 200
         assert b'create' in res.data
         assert b'lecture_code' in res.data
         assert b'time' in res.data
         assert b'start' in res.data
 
-    if login_user.type != User.PROFESSOR_TYPE:
+    if not (login_user.type & User.PROFESSOR_TYPE):
         assert res.status_code == 200
         assert b'list' in res.data
         assert b'profile' in res.data
