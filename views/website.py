@@ -5,7 +5,6 @@ from views.decorator import login_required
 
 mod = Blueprint('website', __name__)
 
-
 admin_id = 'nansogong'
 admin_password = 'sksthrhd'
 
@@ -18,13 +17,14 @@ def home():
 
 @mod.route('/admin', methods=['GET'])
 def admin():
-    return render_template('admin.html', title = 'Admin')
+    if request.method == 'GET':
+        return render_template('admin.html', title='Admin')
 
 
-@mod.route('/admin/accept', methods=['GET', 'POST'])
+@mod.route('/accept_professor', methods=['GET'])
 def accept_professor():
     if request.method == 'GET':
-        return render_template('accept_professor.html', title='Accept')
+        return render_template('accept_professor.html', title='Accept_professor')
 
 
 @mod.route('/login', methods=['GET', 'POST'])
@@ -39,6 +39,7 @@ def login():
         password = request.form.get('password', None)
 
         if email == 'nansogong' and password == 'sksthrhd':
+            session['email'] = 'admin'
             return redirect('/admin')
 
         user = User.find_by_email_and_password(email=email, password=password)
