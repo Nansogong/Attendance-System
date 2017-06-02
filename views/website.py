@@ -90,6 +90,8 @@ def create_lecture():
     if request.method == 'GET':
         return render_template('create_lecture.html', title='Create Lecture')
     elif request.method == 'POST':
+        import datetime
+
         name = request.form.get('name', None)
         lecture_code = request.form.get('lecture_code', None)
         criteria_of_F = request.form.get('criteria_of_F', None)
@@ -99,6 +101,10 @@ def create_lecture():
 
         if name == '' or lecture_code is None or start == '' or time is None or day is None:
             flash('작성되지 않은 필드가 있습니다.', 'error')
+            return redirect('/lectures/create')
+
+        if Lecture.check_term(str(datetime.datetime.now()), lecture_code):
+            flash('이미 생성된 강의번호입니다.', 'error')
             return redirect('/lectures/create')
 
         lecture = Lecture(professor_id=user.id, name=name, lecture_code=lecture_code,
@@ -117,7 +123,7 @@ def check_user_permission(required_type):
     """
     requried_type 에는 퍼미션이 들어옵니다 퍼미션은 Models.user에 있는 User Class에 있습니다
     User.PROFESSOR_TYPE 이 예입니다.
-    퍼미션이 여러개가 들어돠도 됩니다. 그때는 리스트로 보내주면 됩니다.
+    퍼미션이 여러개가 들어와도 됩니다. 그때는 리스트로 보내주면 됩니다.
     ex. required_type = [ professor_type, ta_type ]
 
     만약 권한이 없다면 403 (forbidden)이 status code 로 리턴됩니다.

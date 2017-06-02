@@ -34,6 +34,27 @@ class Lecture(db.Model):
         db.session.commit()
         return True
 
+    @classmethod
+    def check_term(cls, user_date, lecture_code):
+        from sqlalchemy import or_
+
+        date = user_date.split('-')
+        if date[1] in Lecture.SPRING:
+            return cls.query.filter(or_(cls.created.like(date[0] + '-03-%'), cls.created.like(date[0] + '-04-%')),
+                                    cls.lecture_code == lecture_code).all()
+
+        elif date[1] in Lecture.SUMMER:
+            return cls.query.filter(or_(cls.created.like(date[0] + '-06-%'), cls.created.like(date[0] + '-07-%')),
+                                    cls.lecture_code == lecture_code).all()
+
+        elif date[1] in Lecture.ANTUMN:
+            return cls.query.filter(or_(cls.created.like(date[0] + '-09-%'), cls.created.like(date[0] + '-10-%')),
+                                    cls.lecture_code == lecture_code).all()
+
+        elif date[1] in Lecture.WINTER:
+            return cls.query.filter(or_(cls.created.like(date[0] + '-12-%'), cls.created.like(date[0] + '-01-%')),
+                                    cls.lecture_code == lecture_code).all()
+
 
 class LectureDay(db.Model):
     __tablename__ = 'lecture_day'
