@@ -84,6 +84,9 @@ def lecture_list():
 @login_required
 def create_lecture():
     user = check_user_permission(User.PROFESSOR_TYPE)
+
+    if not user:
+        return render_template('forbidden.html'), 403
     if request.method == 'GET':
         return render_template('create_lecture.html', title='Create Lecture')
     elif request.method == 'POST':
@@ -127,7 +130,7 @@ def check_user_permission(required_type):
 
     if not user or not (user.type & required_type):
         flash('권한이 없습니다')
-        return render_template('forbidden.html'), 403
+        return None
 
     return user
 
