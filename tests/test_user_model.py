@@ -6,6 +6,7 @@ if sys.version_info >= (3, 6):
         from app import app  # 지우지 말 것
     except ModuleNotFoundError as e:
         import os
+
         myPath = os.path.dirname(os.path.abspath(__file__))
         sys.path.insert(0, myPath + '/../')
         from app import app
@@ -14,6 +15,7 @@ else:
         from app import app  # 지우지 말 것
     except ImportError as e:
         import os
+
         myPath = os.path.dirname(os.path.abspath(__file__))
         sys.path.insert(0, myPath + '/../')
         from app import app
@@ -23,14 +25,16 @@ def test_set_check_password():
     from models.user import User
 
     password = 'skagustlfqkqh'
-    user = User(user_num=12321312, name='JS Han', email='test@test.com', password=password, fingerprint='12321', type=User.STUDENT_TYPE)
+    user = User(user_num=12321312, name='JS Han', email='test@test.com', password=password, fingerprint='12321',
+                type=User.STUDENT_TYPE)
     assert user.check_password(password)
 
 
-def test_create_user(session):
+def test_create_user():
     from models.user import User
     password = 'skagustlfqkqh'
-    user = User(user_num=12321312, name='JS Han', email='test@test.com', password=password, fingerprint='12321', type=User.STUDENT_TYPE)
+    user = User(user_num=12321312, name='JS Han', email='test@test.com', password=password, fingerprint='12321',
+                type=User.STUDENT_TYPE)
 
     user.create()
     assert user.id > 0
@@ -54,3 +58,11 @@ def test_find_by_email_and_password():
 
     assert user.email == email
     assert user.check_password(password)
+
+
+def test_get_all_filter_by_type_professor(professors):
+    from models.user import User
+    users = User.get_all_filter_by_type(User.PROFESSOR_TYPE)
+    print(users)
+
+    assert all((user.type == User.PROFESSOR_TYPE) for user in users)
