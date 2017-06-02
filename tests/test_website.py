@@ -48,6 +48,21 @@ def test_login_post_success():
         assert res.status_code == 200
 
 
+def test_login_post_success_admin():
+    with app.test_client() as mod:
+        email = 'nansogong'
+        password = 'sksthrhd'
+        res = mod.post('login', data=dict(
+            email=email,
+            password=password
+        ), follow_redirects=True)
+
+        assert session.get('email') == 'admin'
+        assert res.status_code == 200
+        assert b'admin' in res.data
+        assert b'accept_professor' in res.data
+
+
 def test_login_post_fail():
     with app.test_client() as mod:
         email = 'test@test.com'
@@ -149,24 +164,21 @@ def test_register_post_blank_fail():
         assert b'email' in res.data
         assert b'password' in res.data
         assert b'user_num' in res.data
-        assert b'name' in res.datadef test_admin_login_get():
+        assert b'name' in res.data
+
+
+def test_admin_get():
+    mod = app.test_client()
+    res = mod.get('admin')
+
+    assert res.status_code == 200
+    assert b'accept_professor' in res.data
+
+
+def test_accept_professor_get():
     with app.test_client() as mod:
-        email = 'nansogong'
-        password = 'sksthrhd'
-        res = mod.post('login', data=dict(
-            email=email,
-            password=password
-        ), follow_redirects=True)
-
-        assert res.status_code == 200
-        assert b'admin' in res.data
-        assert b'accept_professor' in res.data
-
-
-def test_admin_accept_professor_get():
-    with app.test_client() as mod:
-        res = mod.get('/admin/accept')
-
+        res = mod.get('/accept_professor')
         assert b'professor' in res.data
         assert b'accept' in res.data
         assert b'reject' in res.data
+        assert b'cancel' in res.data
