@@ -11,6 +11,11 @@ db.init_app(current_app)
 class Lecture(db.Model):
     __tablename__ = 'lecture'
 
+    SPRING = ['03', '04', '05']
+    SUMMER = ['06', '07', '08']
+    ANTUMN = ['09', '10', '11']
+    WINTER = ['01', '02', '12']
+
     id = db.Column(INTEGER(unsigned=True), primary_key=True)
     professor_id = db.Column(INTEGER(unsigned=True), db.ForeignKey("user.id"))  # user_id 인데 명확하게 표현하기위해서 이름을 바꿈.
     name = db.Column(db.String(255))

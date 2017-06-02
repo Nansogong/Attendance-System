@@ -20,6 +20,7 @@ else:
         sys.path.insert(0, myPath + '/../')
         from app import app
 
+
 from models.user import User
 
 
