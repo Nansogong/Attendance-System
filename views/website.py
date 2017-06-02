@@ -1,3 +1,5 @@
+from functools import reduce
+
 from flask import render_template, Blueprint, request, redirect, session, flash
 
 from models.user import User
@@ -7,8 +9,8 @@ from views.decorator import login_required
 mod = Blueprint('website', __name__)
 
 
-@login_required
 @mod.route('/')
+@login_required
 def home():
     return render_template('index.html', title='Nansogong')
 
@@ -67,21 +69,22 @@ def register():
             return redirect('/register')
 
         user = User(user_num=user_num, name=name, email=email, password=password, fingerprint=fingerprint, type=type)
-
         user.create()
 
         return redirect('/login')
 
 
+@mod.route('/lectures', methods=['GET', 'POST'])
 @login_required
-@mod.route('/lectures/create', methods=['GET', 'POST'])
-def create_lecture():
-    user = get_current_user()
+def lecture_list():
+    return render_template('lectures.html')
 
+
+@mod.route('/lectures/create', methods=['GET', 'POST'])
+@login_required
+def create_lecture():
+    user = check_user_permission(User.PROFESSOR_TYPE)
     if request.method == 'GET':
-        if user.type != 1:
-            flash('교수가 아닙니다')
-            return redirect('/lectures')
         return render_template('create_lecture.html', title='Create Lecture')
     elif request.method == 'POST':
         name = request.form.get('name', None)
@@ -107,10 +110,26 @@ def create_lecture():
         return redirect('/lectures')
 
 
-@login_required
-@mod.route('/lectures', methods=['GET', 'POST'])
-def lecture_list():
-    return render_template('lectures.html')
+def check_user_permission(required_type):
+    """
+    requried_type 에는 퍼미션이 들어옵니다 퍼미션은 Models.user에 있는 User Class에 있습니다
+    User.PROFESSOR_TYPE 이 예입니다.
+    퍼미션이 여러개가 들어돠도 됩니다. 그때는 리스트로 보내주면 됩니다.
+    ex. required_type = [ professor_type, ta_type ]
+
+    만약 권한이 없다면 403 (forbidden)이 status code 로 리턴됩니다.
+    """
+    if type(required_type) == list:
+        required_type = reduce(lambda x, y: x | y, required_type)
+
+    email = session.get('email', None)
+    user = User.find_by_email(email)
+
+    if not user or not (user.type & required_type):
+        flash('권한이 없습니다')
+        return render_template('forbidden.html'), 403
+
+    return user
 
 
 def get_current_user():
