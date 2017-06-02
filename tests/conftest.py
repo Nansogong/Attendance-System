@@ -20,6 +20,7 @@ else:
         sys.path.insert(0, myPath + '/../')
         from app import app
 
+
 from models.user import User
 
 
@@ -52,9 +53,9 @@ def mod():
 
 
 @pytest.fixture(scope='session', params=[
-    dict(email="test_login_professor@professor.com", password="alskdjfhghfj", user_type=User.PROFESSOR_TYPE),
-    dict(email="test_login_ta@ta.com", password="alskdjfhghfj", user_type=User.TA_TYPE),
-    dict(email="test_login_student@student.com", password="alskdjfhghfj", user_type=User.STUDENT_TYPE)])
+    dict(user_num=2010036111, email="test_login_professor@professor.com", password="alskdjfhghfj", user_type=User.PROFESSOR_TYPE),
+    dict(user_num=2010036112, email="test_login_ta@ta.com", password="alskdjfhghfj", user_type=User.TA_TYPE),
+    dict(user_num=2010036113, email="test_login_student@student.com", password="alskdjfhghfj", user_type=User.STUDENT_TYPE)])
 def login_user(request, mod):
     """
     3가지의 유저 형태로 로그인을 합니다. 로그인할 유저는 로그인시에 생성해주며 그유저로 액션을 하면 됩니다.
@@ -67,7 +68,7 @@ def login_user(request, mod):
     from random import randint
     from flask import session as sess
 
-    _user = User(user_num=randint(0, 100000), name='Pro fessor', email=request.param['email'],
+    _user = User(user_num=request.param['user_num'], name='Professor', email=request.param['email'],
                  password=request.param['password'],
                  fingerprint='13531', type=request.param['user_type'])
     _user.create()
@@ -75,6 +76,7 @@ def login_user(request, mod):
         email=request.param['email'],
         password=request.param['password']
     ), follow_redirects=True)
+
     yield _user
 
 
