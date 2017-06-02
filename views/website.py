@@ -24,7 +24,7 @@ def login():
         email = request.form.get('email', None)
         password = request.form.get('password', None)
 
-        if (email == 'nansogong' and password == 'sksthrhd'):
+        if email == 'nansogong' and password == 'sksthrhd':
             session['email'] = 'admin'
             return redirect('/admin')
 
@@ -36,6 +36,12 @@ def login():
 
         session['email'] = email
         return redirect('/')
+
+
+@mod.route('/logout', methods=['GET'])
+def logout():
+    session.clear()
+    return redirect('/')
 
 
 @mod.route('/register', methods=['GET', 'POST'])
@@ -97,7 +103,7 @@ def create_lecture():
         lecture_day = LectureDay(start=start, time=time, day=day, lecture_id=lecture.id)
 
         lecture_day.create()
-
+        
         return redirect('/lectures')
 
 
