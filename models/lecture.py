@@ -11,6 +11,11 @@ db.init_app(current_app)
 class Lecture(db.Model):
     __tablename__ = 'lecture'
 
+    SPRING = ['03', '04', '05']
+    SUMMER = ['06', '07', '08']
+    ANTUMN = ['09', '10', '11']
+    WINTER = ['01', '02', '12']
+
     id = db.Column(INTEGER(unsigned=True), primary_key=True)
     professor_id = db.Column(INTEGER(unsigned=True), db.ForeignKey("user.id"))  # user_id 인데 명확하게 표현하기위해서 이름을 바꿈.
     name = db.Column(db.String(255))
@@ -28,6 +33,27 @@ class Lecture(db.Model):
         db.session.add(self)
         db.session.commit()
         return True
+
+    @classmethod
+    def check_term(cls, user_date, lecture_code):
+        from sqlalchemy import or_
+
+        date = user_date.split('-')
+        if date[1] in Lecture.SPRING:
+            return cls.query.filter(or_(cls.created.like(date[0] + '-03-%'), cls.created.like(date[0] + '-04-%')),
+                                    cls.lecture_code == lecture_code).all()
+
+        elif date[1] in Lecture.SUMMER:
+            return cls.query.filter(or_(cls.created.like(date[0] + '-06-%'), cls.created.like(date[0] + '-07-%')),
+                                    cls.lecture_code == lecture_code).all()
+
+        elif date[1] in Lecture.ANTUMN:
+            return cls.query.filter(or_(cls.created.like(date[0] + '-09-%'), cls.created.like(date[0] + '-10-%')),
+                                    cls.lecture_code == lecture_code).all()
+
+        elif date[1] in Lecture.WINTER:
+            return cls.query.filter(or_(cls.created.like(date[0] + '-12-%'), cls.created.like(date[0] + '-01-%')),
+                                    cls.lecture_code == lecture_code).all()
 
 
 class LectureDay(db.Model):

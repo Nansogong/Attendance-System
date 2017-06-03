@@ -21,10 +21,10 @@ else:
         from app import app
 
 
-def test_find_by_email_true(user):
+def test_find_by_email_true(professors):
     with app.test_client() as mod:
         from flask import json
-        email = 'professor@professor.com'
+        email = 'professor1@professor.com'
         res = mod.post('find_by_email', data=dict(
             email=email
         ), follow_redirects=True)
@@ -34,7 +34,7 @@ def test_find_by_email_true(user):
         assert data['user_exist'] == True
 
 
-def test_find_by_email_false(user):
+def test_find_by_email_false(professors):
     with app.test_client() as mod:
         from flask import json
         email = 'asdf@asdf.com'

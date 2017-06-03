@@ -10,9 +10,10 @@ db.init_app(current_app)
 
 class User(db.Model):
     __tablename__ = 'user'
+    # bit 연산할 것이라 1,2,4,8으로 진행된다
     PROFESSOR_TYPE = 1
     STUDENT_TYPE = 2
-    TA_TYPE = 3
+    TA_TYPE = 4
     ACCEPTED_PROFESSOR_TYPE = 8
 
     id = db.Column(INTEGER(unsigned=True), primary_key=True)
