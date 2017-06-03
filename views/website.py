@@ -8,11 +8,27 @@ from views.decorator import login_required
 
 mod = Blueprint('website', __name__)
 
+admin_id = 'nansogong'
+admin_password = 'sksthrhd'
 
+
+@login_required
 @mod.route('/')
 @login_required
 def home():
     return render_template('index.html', title='Nansogong')
+
+
+@mod.route('/admin', methods=['GET'])
+def admin():
+    if request.method == 'GET':
+        return render_template('admin.html', title='Admin')
+
+
+@mod.route('/accept_professor', methods=['GET'])
+def accept_professor():
+    if request.method == 'GET':
+        return render_template('accept_professor.html', title='Accept_professor')
 
 
 @mod.route('/login', methods=['GET', 'POST'])

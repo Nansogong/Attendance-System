@@ -39,3 +39,11 @@ def test_find_by_email_and_password():
 
     assert user.email == email
     assert user.check_password(password)
+
+
+def test_get_all_filter_by_type_professor(professors):
+    from models.user import User
+    users = User.get_all_filter_by_type(User.PROFESSOR_TYPE)
+    print(users)
+
+    assert all((user.type == User.PROFESSOR_TYPE) for user in users)
