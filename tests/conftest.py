@@ -50,6 +50,6 @@ def professors():
     _user.create()
     password = 'dfghdfghdfgh'
     _user = User(user_num=5678765, name='Pro fessor3', email='professor3@professor.com', password=password,
-                 fingerprint='78987', type=User.REJECTED_PROFESSOR_TYPE)
+                 fingerprint='78987', type=User.PROFESSOR_TYPE)
     _user.create()
     yield

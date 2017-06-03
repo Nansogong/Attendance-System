@@ -50,9 +50,6 @@ def accept_professor():
                 user.type = User.ACCEPTED_PROFESSOR_TYPE
                 return jsonify(status=user.type)
             elif status == 'reject':
-                user.type = User.REJECTED_PROFESSOR_TYPE
-                return jsonify(status=user.type)
-            elif status == 'cancel':
                 user.type = User.PROFESSOR_TYPE
                 return jsonify(status=user.type)
             else:
