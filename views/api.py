@@ -16,24 +16,22 @@ def find_by_email():
             return jsonify(user_exist=True)
 
 
-def json_list(list):
+def json_list(l):
     lst = []
-    for professor in list:
+    for professor in l:
         d = {'user_num': professor.user_num, 'name': professor.name, 'email': professor.email, 'status': professor.type}
         lst.append(d)
     json.dumps(lst)
-    f = {'list': lst}
-    return json.dumps(f)
+    return {'list': lst}
 
 
 @mod.route('/professor_list', methods=['GET'])
 def professor_list():
     if request.method == 'GET':
-        """ professor, accepted_professor 순  -> sort를 통해 생성된 순서로 정렬하고싶지만 하면 효율이 떨어질 것 같다. """
+        """professor, accepted professor type순으로 리스트 설정"""
         professors = User.get_all_filter_by_type(User.PROFESSOR_TYPE) + \
-                     User.get_all_filter_by_type(User.ACCEPTED_PROFESSOR_TYPE) + \
-                     User.get_all_filter_by_type(User.REJECTED_PROFESSOR_TYPE)
-        return json_list(professors)
+                     User.get_all_filter_by_type(User.ACCEPTED_PROFESSOR_TYPE)
+        return jsonify(json_list(professors))
 
 
 @mod.route('/accept_professor', methods=['POST'])
