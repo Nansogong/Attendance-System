@@ -1,9 +1,10 @@
 from functools import reduce
 
+import datetime
 from flask import render_template, Blueprint, request, redirect, session, flash
 
 from models.user import User
-from models.lecture import Lecture, LectureDay
+from models.lecture import Lecture, LectureDay, RegisterLecture
 from views.decorator import login_required
 
 mod = Blueprint('website', __name__)
@@ -12,7 +13,6 @@ admin_id = 'nansogong'
 admin_password = 'sksthrhd'
 
 
-@login_required
 @mod.route('/')
 @login_required
 def home():
@@ -90,10 +90,21 @@ def register():
         return redirect('/login')
 
 
-@mod.route('/lectures', methods=['GET', 'POST'])
+@mod.route('/lectures', methods=['GET'])
 @login_required
 def lecture_list():
-    return render_template('lectures.html')
+    user = get_current_user()
+
+    lectures = dict()
+    user_date = str(datetime.datetime.now())
+
+    if user.type & User.PROFESSOR_TYPE:
+        lectures['professor'] = Lecture.get_my_current_lecture(user_date, user.id)
+
+    if user.type & User.STUDENT_TYPE:
+        lectures['student'] = RegisterLecture.check_term(user_date, user.id)
+
+    return render_template('lectures.html', lectures=lectures)
 
 
 @mod.route('/lectures/create', methods=['GET', 'POST'])

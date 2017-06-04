@@ -180,6 +180,19 @@ def test_accept_professor_get():
         assert b'reject' in res.data
 
 
+def test_lecture_list_get(mod, login_user):
+    from models.user import User
+    res = mod.get('/lectures', follow_redirects=True)
+
+    if login_user.type & User.PROFESSOR_TYPE:
+        assert '교수 강의 목록'.encode() in res.data
+
+    if login_user.type & User.STUDENT_TYPE:
+        assert '학생 강의 목록'.encode() in res.data
+
+    assert res.status_code == 200
+
+
 def test_create_lecture_get(mod, login_user):
     from models.user import User
 
