@@ -84,8 +84,8 @@ class LectureDay(db.Model):
         return True
 
 
-class AttendanceManagement(db.Model):
-    __tablename__ = 'attendance_management'
+class StudentAttendance(db.Model):
+    __tablename__ = 'student_attendance'
 
     id = db.Column(INTEGER(unsigned=True), primary_key=True)
     user_id = db.Column(INTEGER(unsigned=True))
@@ -94,11 +94,16 @@ class AttendanceManagement(db.Model):
     created = db.Column(db.DateTime(), default=datetime.now(), index=True)
 
 
-class StudentLecture(db.Model):
-    __tablename__ = 'student_lecture'
+class RegisterLecture(db.Model):
+    __tablename__ = 'register_lecture'
 
-    student_id = db.Column(INTEGER(unsigned=True), db.ForeignKey("user.id"), primary_key=True)
-    lecture_id = db.Column(INTEGER(unsigned=True), db.ForeignKey("lecture.id"), primary_key=True)
+    ACCEPT = 1
+    DENY = 2
+    APPLYING = 4
+
+    id = db.Column(INTEGER(unsigned=True), primary_key=True)
+    student_id = db.Column(INTEGER(unsigned=True))
+    lecture_id = db.Column(INTEGER(unsigned=True))
     accept_status = db.Column(TINYINT(unsigned=True))
     updated = db.Column(db.DateTime())
     created = db.Column(db.DateTime(), default=datetime.now())
