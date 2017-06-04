@@ -41,19 +41,40 @@ class Lecture(db.Model):
         date = user_date.split('-')
         if date[1] in Lecture.SPRING:
             return cls.query.filter(or_(cls.created.like(date[0] + '-03-%'), cls.created.like(date[0] + '-04-%')),
-                                    cls.lecture_code == lecture_code).all()
+                                    cls.lecture_code == lecture_code).first()
 
         elif date[1] in Lecture.SUMMER:
             return cls.query.filter(or_(cls.created.like(date[0] + '-06-%'), cls.created.like(date[0] + '-07-%')),
-                                    cls.lecture_code == lecture_code).all()
+                                    cls.lecture_code == lecture_code).first()
 
         elif date[1] in Lecture.ANTUMN:
             return cls.query.filter(or_(cls.created.like(date[0] + '-09-%'), cls.created.like(date[0] + '-10-%')),
-                                    cls.lecture_code == lecture_code).all()
+                                    cls.lecture_code == lecture_code).first()
 
         elif date[1] in Lecture.WINTER:
             return cls.query.filter(or_(cls.created.like(date[0] + '-12-%'), cls.created.like(date[0] + '-01-%')),
-                                    cls.lecture_code == lecture_code).all()
+                                    cls.lecture_code == lecture_code).first()
+
+    @classmethod
+    def get_my_current_lecture(cls, user_date, professor_id):
+        from sqlalchemy import or_
+
+        date = user_date.split('-')
+        if date[1] in Lecture.SPRING:
+            return cls.query.filter(or_(cls.created.like(date[0] + '-03-%'), cls.created.like(date[0] + '-04-%')),
+                                    cls.professor_id == professor_id).first()
+
+        elif date[1] in Lecture.SUMMER:
+            return cls.query.filter(or_(cls.created.like(date[0] + '-06-%'), cls.created.like(date[0] + '-07-%')),
+                                    cls.professor_id == professor_id).first()
+
+        elif date[1] in Lecture.ANTUMN:
+            return cls.query.filter(or_(cls.created.like(date[0] + '-09-%'), cls.created.like(date[0] + '-10-%')),
+                                    cls.professor_id == professor_id).first()
+
+        elif date[1] in Lecture.WINTER:
+            return cls.query.filter(or_(cls.created.like(date[0] + '-12-%'), cls.created.like(date[0] + '-01-%')),
+                                    cls.professor_id == professor_id).first()
 
 
 class LectureDay(db.Model):
@@ -84,8 +105,8 @@ class LectureDay(db.Model):
         return True
 
 
-class AttendanceManagement(db.Model):
-    __tablename__ = 'attendance_management'
+class StudentAttendance(db.Model):
+    __tablename__ = 'student_attendance'
 
     id = db.Column(INTEGER(unsigned=True), primary_key=True)
     user_id = db.Column(INTEGER(unsigned=True))
@@ -94,11 +115,47 @@ class AttendanceManagement(db.Model):
     created = db.Column(db.DateTime(), default=datetime.now(), index=True)
 
 
-class StudentLecture(db.Model):
-    __tablename__ = 'student_lecture'
+class RegisterLecture(db.Model):
+    __tablename__ = 'register_lecture'
 
-    student_id = db.Column(INTEGER(unsigned=True), db.ForeignKey("user.id"), primary_key=True)
-    lecture_id = db.Column(INTEGER(unsigned=True), db.ForeignKey("lecture.id"), primary_key=True)
+    ACCEPT = 1
+    DENY = 2
+    APPLYING = 4
+
+    id = db.Column(INTEGER(unsigned=True), primary_key=True)
+    student_id = db.Column(INTEGER(unsigned=True))
+    lecture_id = db.Column(INTEGER(unsigned=True))
     accept_status = db.Column(TINYINT(unsigned=True))
     updated = db.Column(db.DateTime())
     created = db.Column(db.DateTime(), default=datetime.now())
+
+    def __init__(self, student_id, lecture_id, accept_status):
+        self.student_id = student_id
+        self.lecture_id = lecture_id
+        self.accept_status = accept_status
+
+    @classmethod
+    def check_term(cls, user_date, student_id):
+        from sqlalchemy import or_
+
+        date = user_date.split('-')
+        if date[1] in Lecture.SPRING:
+            return cls.query.filter(or_(cls.created.like(date[0] + '-03-%'), cls.created.like(date[0] + '-04-%')),
+                                    cls.student_id == student_id).all()
+
+        elif date[1] in Lecture.SUMMER:
+            return cls.query.filter(or_(cls.created.like(date[0] + '-06-%'), cls.created.like(date[0] + '-07-%')),
+                                    cls.student_id == student_id).all()
+
+        elif date[1] in Lecture.ANTUMN:
+            return cls.query.filter(or_(cls.created.like(date[0] + '-09-%'), cls.created.like(date[0] + '-10-%')),
+                                    cls.student_id == student_id).all()
+
+        elif date[1] in Lecture.WINTER:
+            return cls.query.filter(or_(cls.created.like(date[0] + '-12-%'), cls.created.like(date[0] + '-01-%')),
+                                    cls.student_id == student_id).all()
+
+    def create(self):
+        db.session.add(self)
+        db.session.commit()
+        return True
