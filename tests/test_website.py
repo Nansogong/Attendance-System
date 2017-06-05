@@ -216,17 +216,23 @@ def test_create_lecture(mod, login_user):
     professor_id = login_user.id
     name = "Software Engineering"
     lecture_code = "40201"
-    start = "10:30"
-    time = 90
-    day = LectureDay.MON
+    start1 = "10:30"
+    time1 = 90
+    day1 = LectureDay.MON
+    start2 = "9:00"
+    time2 = 90
+    day2 = LectureDay.WED
 
     res = mod.post('/lectures/create', data=dict(
         professor_id=professor_id,
         name=name,
         lecture_code=lecture_code,
-        start=start,
-        time=time,
-        day=day
+        start1=start1,
+        time1=time1,
+        day1=day1,
+        start2=start2,
+        time2=time2,
+        day2=day2
     ), follow_redirects=True)
 
     if login_user.type & User.PROFESSOR_TYPE:
@@ -254,9 +260,9 @@ def test_create_lecture_blank_fail(mod, login_user):
         professor_id=professor_id,
         name=name,
         lecture_code=lecture_code,
-        start=start,
-        time=time,
-        day=day
+        start1=start,
+        time1=time,
+        day1=day
     ), follow_redirects=True)
 
     if login_user.type & User.PROFESSOR_TYPE:
@@ -285,18 +291,18 @@ def test_create_lecture_code_dup_fail(mod, login_user):
         professor_id=professor_id,
         name=name,
         lecture_code=lecture_code,
-        start=start,
-        time=time,
-        day=day
+        start1=start,
+        time1=time,
+        day1=day
     ), follow_redirects=True)
 
     res = mod.post('/lectures/create', data=dict(
         professor_id=professor_id,
         name=name,
         lecture_code=lecture_code,
-        start="14:30",
-        time=time,
-        day=day
+        start1="14:30",
+        time1=time,
+        day1=day
     ), follow_redirects=True)
 
     if login_user.type & User.PROFESSOR_TYPE:
