@@ -1,55 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<link rel="stylesheet" href="../static/css/bootstrap.css"/>
-<link rel="stylesheet" href="../static/css/main_page.css"/>
-<head>
-    <meta charset="UTF-8">
-    <title>title</title>
-</head>
-<body>
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                    data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Brand</a>
-        </div>
-
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-                <li><a href="#">Link</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown
-                        <span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">One more separated link</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <form class="navbar-form navbar-left" role="search">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search">
-                </div>
-                <button type="submit" class="btn btn-default">Submit</button>
-            </form>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Link</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
+{% extends "base.html" %}
+{% block content %}
 <div class="container">
     <h2>Profile</h2>
     <dl class="dl-horizontal">
@@ -75,8 +25,8 @@
             </ul>
         </li>
         <li><a class="btn btn-primary">강의찾기</a>
-        <a class="btn btn-primary">출석하기</a>
-        <a class="btn btn-danger">강의삭제</a></li>
+            <a class="btn btn-primary">출석하기</a>
+            <a class="btn btn-danger">강의삭제</a></li>
     </ul>
     <h2>교수</h2>
     <ul>
@@ -87,9 +37,10 @@
                 <li><a href="#">소공 / 과목코드 / 교수님 / 수업시작 : 화 09:00 목 09:00 / 90분 수업</a></li>
             </ul>
         </li>
-        <li><a class="btn btn-primary">강의등록</a></li>
-        <li><a class="btn btn-primary">출석수정</a>
-            <a class="btn btn-primary">강의승인</a><a class="btn btn-danger">강의삭제</a></li>
+        <li><a href='#' class="btn btn-primary">강의등록</a></li>
+        <!--#에 해당 도메인 들어가면됨-->
+        <li><a href='#' class="btn btn-primary">교수승인</a></li>
+        <!--#에 해당 도메인 들어가면됨-->
     </ul>
     <h2>조교</h2>
     <ul>
@@ -98,5 +49,4 @@
     <script src="../static/js/jquery-1.12.4.js"></script>
     <script src="../static/js/bootstrap.js"></script>
 </div>
-</body>
-</html>
+{% endblock %}

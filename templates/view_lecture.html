@@ -1,12 +1,10 @@
-<!--{% extends "base.html" %}
-{% block content %}-->
 <!DOCTYPE html>
 <html lang="en">
 <link rel="stylesheet" href="../static/css/bootstrap.css"/>
 <link rel="stylesheet" href="../static/css/login.css"/>
 <head>
     <meta charset="UTF-8">
-    <title>login</title>
+    <title>view_lecture</title>
 </head>
 <body>
 <nav class="navbar navbar-default">
@@ -56,29 +54,45 @@
 <form class="form-horizontal">
     <fieldset>
         <div class="form-group">
-            <!--<label for="inputID" class="col-lg-2 control-label">ID</label>-->
-            <label for="input_email" class="col-xs-2 col-sm-4 col-md-5 col-lg-5 control-label">email</label>
-            <!--<div class="col-lg-10">-->
+            <label for="output_lecture_name" class="col-xs-2 col-sm-4 col-md-5 col-lg-5 control-label">강의 이름</label>
             <div class="col-xs-9 col-sm-5 col-md-3 col-lg-3">
-                <input type="text" class="form-control" id="input_email" placeholder="아이디를 입력하세요" size="20">
+                <input type="text" class="form-control" id="output_lecture_name" placeholder="강의 이름">
             </div>
         </div>
         <div class="form-group">
-            <label for="input_password" class="col-xs-2 col-sm-4 col-md-5 col-lg-5 control-label">password</label>
+            <label for="output_lecture_code" class="col-xs-2 col-sm-4 col-md-5 col-lg-5 control-label">학수 코드</label>
             <div class="col-xs-9 col-sm-5 col-md-3 col-lg-3">
-                <input type="password" class="form-control" id="input_password" placeholder="Password를 입력하세요">
+                <input type="text" class="form-control" id="output_lecture_code" placeholder="학수 코드">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-2 col-sm-4 col-md-5 col-lg-5 control-label">일주일에 수업이 몇 번 수업합니다</label>
+            <!--이부분 라디오 값 어캐 받아올꺼-->
+        </div>
+        <div class="form-group">
+            <label class="col-xs-2 col-sm-4 col-md-5 col-lg-5 control-label">몇 시간짜리 수업입니다</label>
+            <!--이부분 라디오 값 어캐 받아올꺼-->
+        </div>
+        <div class="form-group">
+            <label class="col-xs-2 col-sm-4 col-md-5 col-lg-5 control-label">요일은 언제 입니다</label>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-2 col-sm-4 col-md-5 col-lg-5 control-label">시작 시간은 언제입니다</label>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-2 col-sm-4 col-md-5 col-lg-5 control-label">분은 언제입니다</label>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-10 col-xs-offset-2 col-sm-offset-4 col-md-offset-5 col-lg-offset-5">
+                <button type="button" class="btn btn-default">Create Excel</button>
+                <button type="button" class="btn btn-primary">강의수정 페이지 바로가기</button>
             </div>
         </div>
         <div class="form-group">
             <div class="col-lg-10 col-xs-offset-2 col-sm-offset-4 col-md-offset-5 col-lg-offset-5">
-                <button type="button" class="btn btn-primary" onclick="submit_login();">로그인</button>
-                <button type="button" class="btn btn-default" onclick="submit_signup();">회원가입</button>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-lg-10 col-xs-offset-2 col-sm-offset-4 col-md-offset-5 col-lg-offset-5">
-                <button type="button" class="btn btn-primary" onclick="output_email()">emal출력하기</button>
-                <button type="button" class="btn btn-default" onclick="output_password()">pw출력하기</button>
+                <button type="button" class="btn btn-primary">강의승인 페이지 바로가기</button>
+                <button type="button" class="btn btn-default">출결지 페이지 바로가기</button>
+                <button type="button" class="btn btn-primary">강의삭제 페이지 바로가기</button>
             </div>
         </div>
     </fieldset>
@@ -86,7 +100,5 @@
 
 <script src="../static/js/jquery-1.12.4.js"></script>
 <script src="../static/js/bootstrap.js"></script>
-<script src="../static/js/login_test2.js"></script>
 </body>
 </html>
-<!--{% endblock %}-->
