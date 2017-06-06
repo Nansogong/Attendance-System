@@ -24,6 +24,7 @@ else:
 def test_find_by_email_true(professors):
     with app.test_client() as mod:
         from flask import json
+
         email = 'professor1@professor.com'
         res = mod.post('find_by_email', data=dict(
             email=email
@@ -37,6 +38,7 @@ def test_find_by_email_true(professors):
 def test_find_by_email_false(professors):
     with app.test_client() as mod:
         from flask import json
+
         email = 'asdf@asdf.com'
         res = mod.post('find_by_email', data=dict(
             email=email
@@ -97,6 +99,7 @@ def test_accept_professor_post_request_error(professors):
 def test_accept_professor_post_fail(professors):
     with app.test_client() as mod:
         from flask import json
+
         email = 'asdf@asdf.com'
         status = 'accept'
         res = mod.post('accept_professor', data=dict(
@@ -113,7 +116,7 @@ def test_apply_lecture_post_success(mod, login_user):
     from models.user import User
     from models.lecture import RegisterLecture
 
-    if (login_user.type & User.STUDENT_TYPE) | (login_user.type & User.TA_TYPE):
+    if login_user.type & User.STUDENT_TYPE:
         lecture_code = 12364
         status = 'apply'
         res = mod.post('/apply_lecture', data=dict(
@@ -128,7 +131,7 @@ def test_apply_lecture_post_fail(mod, login_user):
     from flask import json
     from models.user import User
 
-    if (login_user.type & User.STUDENT_TYPE) | (login_user.type & User.TA_TYPE):
+    if login_user.type & User.STUDENT_TYPE:
         lecture_code = 12364
         status = 'asdf'
         res = mod.post('/apply_lecture', data=dict(
@@ -139,3 +142,52 @@ def test_apply_lecture_post_fail(mod, login_user):
         assert data['status'] == 'request_error'
 
 
+def test_accept_student_post_accept(mod):
+    from flask import json
+    from models.lecture import RegisterLecture
+
+    student_num = 2010036113
+    lecture_code = 12364
+    status = 'accept'
+
+    res = mod.post('/lectures/accept_student', data=dict(
+        student_num=student_num,
+        lecture_code=lecture_code,
+        status=status
+    ), follow_redirects=True)
+    data = json.loads(res.data)
+    assert data['status'] == RegisterLecture.ACCEPT
+
+
+def test_accept_student_post_reject(mod):
+    from flask import json
+    from models.lecture import RegisterLecture
+
+    student_num = 2010036113
+    lecture_code = 12364
+    status = 'reject'
+
+    res = mod.post('/lectures/accept_student', data=dict(
+        student_num=student_num,
+        lecture_code=lecture_code,
+        status=status
+    ), follow_redirects=True)
+    data = json.loads(res.data)
+    assert data['status'] == RegisterLecture.DENY
+
+
+def test_accept_student_post_fail(mod):
+    from flask import json
+    from models.lecture import RegisterLecture
+
+    student_num = 2010036113
+    lecture_code = 12364
+    status = 'asdf'
+
+    res = mod.post('/lectures/accept_student', data=dict(
+        student_num=student_num,
+        lecture_code=lecture_code,
+        status=status
+    ), follow_redirects=True)
+    data = json.loads(res.data)
+    assert data['status'] == 'request_error'

@@ -1,7 +1,8 @@
-from flask import Blueprint, request, jsonify, json, flash
+from flask import Blueprint, request, jsonify, flash
 
+from models.lecture import Lecture, RegisterLecture
 from models.user import User
-from views.decorator import login_required
+from views.website import get_current_user
 
 mod = Blueprint('api', __name__)
 
@@ -54,3 +55,24 @@ def apply_lecture():
             flash('잘못된 요청입니다', 'error')
             return jsonify(status='request_error')
 
+
+@mod.route('/lectures/accept_student', methods=['POST'])
+def accept_student():
+    if request.method == 'POST':
+        lecture_code = request.form.get('lecture_code')
+        student_num = request.form.get('student_num')
+        status = request.form.get('status')
+
+        student = User.find_by_user_num(student_num)
+        lecture = Lecture.find_by_lecture_code(lecture_code)
+
+        register_lecture = RegisterLecture.find_register_lecture_by_student_id_lecture_id(student.id, lecture.id)
+        if status == 'accept':
+            register_lecture.accept_status = RegisterLecture.ACCEPT
+            return jsonify(status=register_lecture.accept_status)
+        elif status == 'reject':
+            register_lecture.accept_status = RegisterLecture.DENY
+            return jsonify(status=register_lecture.accept_status)
+        else:
+            flash('잘못된 요청입니다', 'error')
+            return jsonify(status='request_error')
