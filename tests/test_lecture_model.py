@@ -25,3 +25,12 @@ def test_create_RegisterLecture_success(lecture):
                                        accept_status=RegisterLecture.APPLYING)
     register_lecture.create()
     assert register_lecture.id > 0
+
+
+def test_find_by_lecture_code():
+    from models.lecture import Lecture
+    lecture_code = 12364
+    lecture = Lecture.find_by_lecture_code(lecture_code=lecture_code)
+
+    assert lecture.lecture_code == '12364'
+

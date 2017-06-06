@@ -95,6 +95,10 @@ class Lecture(db.Model):
             return cls.query.filter(or_(cls.created.like(date[0] + '-12-%'), cls.created.like(date[0] + '-01-%')),
                                     cls.professor_id == professor_id).first()
 
+    @classmethod
+    def find_by_lecture_code(cls, lecture_code):
+        return cls.query.filter_by(lecture_code=lecture_code).first()
+
 
 class LectureDay(db.Model):
     __tablename__ = 'lecture_day'
