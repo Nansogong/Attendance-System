@@ -116,6 +116,37 @@ def test_register_post_success():
         assert User.find_by_user_num(user_num)
 
 
+def test_register_post_professor_type_to_pending_professor():
+    with app.test_client() as mod:
+        from models.user import User
+        user_num = 2015000011
+        name = 'Hsil Nam'
+        email = 'hsilnam@test.com'
+        password = 'wlerktn'
+        fingerprint = '234632'
+        type = User.PROFESSOR_TYPE
+
+        res = mod.post('register', data=dict(
+            user_num=user_num,
+            name=name,
+            email=email,
+            password=password,
+            fingerprint=fingerprint,
+            type=type
+        ), follow_redirects=True)
+
+        user = User.find_by_email(email)
+
+        assert res.status_code == 200
+        assert b'email' in res.data
+        assert b'password' in res.data
+        assert not b'user_num' in res.data
+        assert not b'name' in res.data
+        assert User.find_by_email(email)
+        assert User.find_by_user_num(user_num)
+        assert user.type == User.PENDING_PROFESSOR_TYPE
+
+
 def test_register_post_overlap_fail():
     with app.test_client() as mod:
         user_num = 12321312  # 학번이 중복되었을 경우
@@ -313,4 +344,47 @@ def test_create_lecture_code_dup_fail(mod, login_user):
         assert b'start' in res.data
 
     if not (login_user.type & User.PROFESSOR_TYPE):
+        assert res.status_code == 403
+
+
+def test_search_lecture_get(mod, login_user):
+    from models.user import User
+
+    res = mod.get('/lectures/search_lecture', follow_redirects=True)
+
+    if login_user.type & User.STUDENT_TYPE:
+        assert res.status_code == 200
+        assert b'lecture_list' in res.data
+        assert b'apply' in res.data
+        assert '강의 목록'.encode() in res.data
+
+    if not login_user.type & User.STUDENT_TYPE:
+        assert res.status_code == 403
+
+
+def test_accept_student_get(mod, login_user):
+    from models.user import User
+
+    res = mod.get('/lectures/accept_student', follow_redirects=True)
+
+    if login_user.type & User.PROFESSOR_TYPE:
+        assert res.status_code == 200
+        assert b'student' in res.data
+        assert b'accept' in res.data
+        assert b'reject' in res.data
+        assert '학생 목록'.encode() in res.data
+
+    if not login_user.type & User.PROFESSOR_TYPE:
+        assert res.status_code == 403
+
+
+def test_professor_list_get(mod, login_user):
+    from models.user import User
+
+    res = mod.get('/professor_list', follow_redirects=True)
+
+    if login_user.type & User.PROFESSOR_TYPE:
+        assert res.status_code == 200
+        assert '교수 목록'.encode() in res.data
+    if not login_user.type & User.PROFESSOR_TYPE:
         assert res.status_code == 403
