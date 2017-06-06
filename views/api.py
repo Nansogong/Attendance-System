@@ -16,24 +16,6 @@ def find_by_email():
             return jsonify(user_exist=True)
 
 
-def json_list(l):
-    lst = []
-    for professor in l:
-        d = {'user_num': professor.user_num, 'name': professor.name, 'email': professor.email, 'status': professor.type}
-        lst.append(d)
-    json.dumps(lst)
-    return {'list': lst}
-
-
-@mod.route('/professor_list', methods=['GET'])
-def professor_list():
-    if request.method == 'GET':
-        """professor, accepted professor type순으로 리스트 설정"""
-        professors = User.get_all_filter_by_type(User.PROFESSOR_TYPE) + \
-                     User.get_all_filter_by_type(User.ACCEPTED_PROFESSOR_TYPE)
-        return jsonify(json_list(professors))
-
-
 @mod.route('/accept_professor', methods=['POST'])
 def accept_professor():
     if request.method == 'POST':

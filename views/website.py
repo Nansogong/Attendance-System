@@ -161,6 +161,23 @@ def create_lecture():
         return redirect('/lectures')
 
 
+
+@mod.route('/professor_list', methods=['GET'])
+@login_required
+def professor_list():
+    user = check_user_permission(User.PROFESSOR_TYPE)
+
+    if not user:
+        return render_template('forbidden.html'), 403
+    if request.method == 'GET':
+        """
+        professor, accepted professor type순으로 리스트 설정
+        """
+        professors = User.get_all_filter_by_type(User.PROFESSOR_TYPE) + \
+                     User.get_all_filter_by_type(User.PENDING_PROFESSOR_TYPE)
+        return render_template('accept_professor.html', professors=professors)
+
+
 def check_user_permission(required_type):
     """
     requried_type 에는 퍼미션이 들어옵니다 퍼미션은 Models.user에 있는 User Class에 있습니다

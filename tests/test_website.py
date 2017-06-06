@@ -345,3 +345,13 @@ def test_create_lecture_code_dup_fail(mod, login_user):
 
     if not (login_user.type & User.PROFESSOR_TYPE):
         assert res.status_code == 403
+def test_professor_list_get(mod, login_user):
+    from models.user import User
+
+    res = mod.get('/professor_list', follow_redirects=True)
+
+    if login_user.type & User.PROFESSOR_TYPE:
+        assert res.status_code == 200
+        assert '교수 목록'.encode() in res.data
+    if not login_user.type & User.PROFESSOR_TYPE:
+        assert res.status_code == 403
