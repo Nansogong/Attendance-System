@@ -122,13 +122,22 @@ def create_lecture():
         name = request.form.get('name', None)
         lecture_code = request.form.get('lecture_code', None)
         criteria_of_F = request.form.get('criteria_of_F', None)
-        start = request.form.get('start', None)
-        time = request.form.get('time', None)
-        day = request.form.get('day', None)
+        start1 = request.form.get('start1', None)
+        time1 = request.form.get('time1', None)
+        day1 = request.form.get('day1', None)
+        start2 = request.form.get('start2', None)
+        time2 = request.form.get('time2', None)
+        day2 = request.form.get('day2', None)
 
-        if name == '' or lecture_code is None or start == '' or time is None or day is None:
+        if name == '' or lecture_code is None or start1 == '' or time1 is None or day1 is None:
             flash('작성되지 않은 필드가 있습니다.', 'error')
             return redirect('/lectures/create')
+
+        if start2 != "" or time2 is not None or day2 is not None:
+            if time2 is None or day2 is None or start2 == "":
+                flash('작성되지 않은 필드가 있습니다.', 'error')
+                return redirect('/lectures/create')
+
 
         if Lecture.check_term(str(datetime.datetime.now()), lecture_code):
             flash('이미 생성된 강의번호입니다.', 'error')
@@ -139,9 +148,14 @@ def create_lecture():
 
         lecture.create()
 
-        lecture_day = LectureDay(start=start, time=time, day=day, lecture_id=lecture.id)
+        lecture_day = LectureDay(start=start1, time=time1, day=day1, lecture_id=lecture.id)
 
         lecture_day.create()
+
+        if start2 != "":
+            lecture_day = LectureDay(start=start2, time=time2, day=day2, lecture_id=lecture.id)
+
+            lecture_day.create()
         
         return redirect('/lectures')
 
