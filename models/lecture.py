@@ -147,7 +147,7 @@ class RegisterLecture(db.Model):
 
     id = db.Column(INTEGER(unsigned=True), primary_key=True)
     student_id = db.Column(INTEGER(unsigned=True))
-    lecture_id = db.Column(INTEGER(unsigned=True))
+    lecture_id = db.Column(INTEGER(unsigned=True), db.ForeignKey("lecture.id"))
     accept_status = db.Column(TINYINT(unsigned=True))
     updated = db.Column(db.DateTime())
     created = db.Column(db.DateTime(), default=datetime.now())
@@ -178,6 +178,31 @@ class RegisterLecture(db.Model):
             return cls.query.filter(or_(cls.created.like(date[0] + '-12-%'), cls.created.like(date[0] + '-01-%')),
                                     cls.student_id == student_id).all()
 
+    @classmethod
+    def get_current_semester_professor(cls, professor_id):
+        """
+            로그인된 교수님의 과목을 신청한 학생들의 RegisterLecture을 가져옵니다
+        """
+        from sqlalchemy import or_
+        import datetime
+
+        user_date = str(datetime.datetime.now())
+        date = user_date.split('-')
+        if date[1] in Lecture.SPRING:
+            return cls.query.join(Lecture, Lecture.id == RegisterLecture.lecture_id).filter(or_(cls.created.like(date[0] + '-03-%'), cls.created.like(date[0] + '-04-%')),
+                                                                                            Lecture.professor_id == professor_id).all()
+
+        elif date[1] in Lecture.SUMMER:
+            return cls.query.join(Lecture, Lecture.id == RegisterLecture.lecture_id).filter(or_(cls.created.like(date[0] + '-06-%'), cls.created.like(date[0] + '-07-%')),
+                                                                                            Lecture.professor_id == professor_id).all()
+
+        elif date[1] in Lecture.ANTUMN:
+            return cls.query.join(Lecture, Lecture.id == RegisterLecture.lecture_id).filter(or_(cls.created.like(date[0] + '-09-%'), cls.created.like(date[0] + '-10-%')),
+                                                                                            Lecture.professor_id == professor_id).all()
+
+        elif date[1] in Lecture.WINTER:
+            return cls.query.join(Lecture, Lecture.id == RegisterLecture.lecture_id).filter(or_(cls.created.like(date[0] + '-12-%'), cls.created.like(date[0] + '-01-%')),
+                                                                                            Lecture.professor_id == professor_id).all()
     def create(self):
         db.session.add(self)
         db.session.commit()
