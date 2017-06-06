@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="../static/css/create_lecture.css"/>
 <head>
     <meta charset="UTF-8">
-    <title>register_lecture</title>
+    <title>create_lecture</title>
 </head>
 <body>
 <nav class="navbar navbar-default">
@@ -72,9 +72,9 @@
 
         <!--교수님이 생각하시는 F의 기준-->
         <div class="form-group">
-            <label for="criteria_of_F" class="col-xs-2 col-sm-4 col-md-5 col-lg-5 control-label">결석 몇 번이면 F다?</label>
+            <label for="select_criteria_of_F" class="col-xs-2 col-sm-4 col-md-5 col-lg-5 control-label">결석 몇 번이면 F다?</label>
             <div class="col-xs-9 col-sm-5 col-md-3 col-lg-3">
-                <select class="form-control" id="criteria_of_F">
+                <select class="form-control" id="select_criteria_of_F">
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>
@@ -96,19 +96,19 @@
             <div class="col-xs-9 col-sm-5 col-md-3 col-lg-3">
                 <div class="radio">
                     <label>
-                        <input type="radio" name="lecture_amount_radio" id="lecture_amount_radio1" value="option1" checked="checked">
+                        <input type="radio" name="radio_lecture_amount" id="radio_lecture_amount1" value="1" checked="checked">
                         1번
                     </label>
                 </div>
                 <div class="radio">
                     <label>
-                        <input type="radio" name="lecture_amount_radio" id="lecture_amount_radio2" value="option2">
+                        <input type="radio" name="radio_lecture_amount" id="radio_lecture_amount2" value="2">
                         2번
                     </label>
                 </div>
                 <div class="radio">
                     <label>
-                        <input type="radio" name="lecture_amount_radio" id="lecture_amount_radio3" value="option3">
+                        <input type="radio" name="radio_lecture_amount" id="radio_lecture_amount3" value="3">
                         3번
                     </label>
                 </div>
@@ -116,30 +116,32 @@
         </div>
 
 
+
+
         <div class="form-group">
             <label class="col-xs-2 col-sm-4 col-md-5 col-lg-5 control-label">몇 시간짜리 수업입니까?</label>
             <div class="col-xs-9 col-sm-5 col-md-3 col-lg-3">
                 <div class="radio">
                     <label>
-                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="checked">
+                        <input type="radio" name="radio_running_time" id="radio_running_time1" value="1_5hour" checked="checked">
                         1시간 30분
                     </label>
                 </div>
                 <div class="radio">
                     <label>
-                        <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                        <input type="radio" name="radio_running_time" id="radio_running_time2" value="2hour">
                         2시간
                     </label>
                 </div>
                 <div class="radio">
                     <label>
-                        <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">
+                        <input type="radio" name="radio_running_time" id="radio_running_time3" value="2_5hour">
                         2시간 30분
                     </label>
                 </div>
                 <div class="radio">
                     <label>
-                        <input type="radio" name="optionsRadios" id="optionsRadios4" value="option4">
+                        <input type="radio" name="radio_running_time" id="radio_running_time4" value="3hour">
                         3시간
                     </label>
                 </div>
