@@ -75,12 +75,14 @@ def test_accept_professor_post_success_accept(professors):
         ), follow_redirects=True)
 
         data = json.loads(res.data)
-        assert data['status'] == 8
+        assert data['status'] == User.PROFESSOR_TYPE
 
 
 def test_accept_professor_post_success_reject(professors):
     with app.test_client() as mod:
         from flask import json
+        from models.user import User
+
         email = 'professor1@professor.com'
         status = 'reject'
         res = mod.post('accept_professor', data=dict(
@@ -89,12 +91,13 @@ def test_accept_professor_post_success_reject(professors):
         ), follow_redirects=True)
 
         data = json.loads(res.data)
-        assert data['status'] == 1
+        assert data['status'] == User.PENDING_PROFESSOR_TYPE
 
 
 def test_accept_professor_post_request_error(professors):
     with app.test_client() as mod:
         from flask import json
+
         email = 'professor1@professor.com'
         status = 'asdf'
         res = mod.post('accept_professor', data=dict(

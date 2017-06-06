@@ -73,7 +73,8 @@ def register():
         password = request.form.get('password', None)
         fingerprint = request.form.get('fingerprint', None)
         type = request.form.get('type', None)
-
+        if type == str(User.PROFESSOR_TYPE):
+            type = User.PENDING_PROFESSOR_TYPE
         if user_num is None or name == '' or email == '' or password == '' or fingerprint == '' or type is None:
             flash('작성되지 않은 필드가 있습니다.', 'error')
             return redirect('/register')

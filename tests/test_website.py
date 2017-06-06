@@ -116,6 +116,37 @@ def test_register_post_success():
         assert User.find_by_user_num(user_num)
 
 
+def test_register_post_professor_type_to_pending_professor():
+    with app.test_client() as mod:
+        from models.user import User
+        user_num = 2015000011
+        name = 'Hsil Nam'
+        email = 'hsilnam@test.com'
+        password = 'wlerktn'
+        fingerprint = '234632'
+        type = User.PROFESSOR_TYPE
+
+        res = mod.post('register', data=dict(
+            user_num=user_num,
+            name=name,
+            email=email,
+            password=password,
+            fingerprint=fingerprint,
+            type=type
+        ), follow_redirects=True)
+
+        user = User.find_by_email(email)
+
+        assert res.status_code == 200
+        assert b'email' in res.data
+        assert b'password' in res.data
+        assert not b'user_num' in res.data
+        assert not b'name' in res.data
+        assert User.find_by_email(email)
+        assert User.find_by_user_num(user_num)
+        assert user.type == User.PENDING_PROFESSOR_TYPE
+
+
 def test_register_post_overlap_fail():
     with app.test_client() as mod:
         user_num = 12321312  # 학번이 중복되었을 경우

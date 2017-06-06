@@ -45,10 +45,10 @@ def accept_professor():
             return jsonify(msg='user_not_exist')
         else:
             if status == 'accept':
-                user.type = User.ACCEPTED_PROFESSOR_TYPE
+                user.type = User.PROFESSOR_TYPE
                 return jsonify(status=user.type)
             elif status == 'reject':
-                user.type = User.PROFESSOR_TYPE
+                user.type = User.PENDING_PROFESSOR_TYPE
                 return jsonify(status=user.type)
             else:
                 flash('잘못된 요청입니다', 'error')

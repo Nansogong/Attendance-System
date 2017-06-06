@@ -155,7 +155,7 @@ def professors():
     _user.create()
     password = 'sdfgsdfgsdfg'
     _user = User(user_num=3456543, name='Pro fessor2', email='professor2@professor.com', password=password,
-                 fingerprint='56765', type=User.ACCEPTED_PROFESSOR_TYPE)
+                 fingerprint='56765', type=User.PENDING_PROFESSOR_TYPE)
     _user.create()
     password = 'dfghdfghdfgh'
     _user = User(user_num=5678765, name='Pro fessor3', email='professor3@professor.com', password=password,
