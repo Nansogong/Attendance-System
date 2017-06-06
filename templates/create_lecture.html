@@ -90,34 +90,7 @@
             </div>
         </div>
 
-        <!--수업일수-->
-        <div class="form-group">
-            <label class="col-xs-2 col-sm-4 col-md-5 col-lg-5 control-label">일주일에 수업이 몇 번?</label>
-            <div class="col-xs-9 col-sm-5 col-md-3 col-lg-3">
-                <div class="radio">
-                    <label>
-                        <input type="radio" name="radio_lecture_amount" id="radio_lecture_amount1" value="1" checked="checked">
-                        1번
-                    </label>
-                </div>
-                <div class="radio">
-                    <label>
-                        <input type="radio" name="radio_lecture_amount" id="radio_lecture_amount2" value="2">
-                        2번
-                    </label>
-                </div>
-                <div class="radio">
-                    <label>
-                        <input type="radio" name="radio_lecture_amount" id="radio_lecture_amount3" value="3">
-                        3번
-                    </label>
-                </div>
-            </div>
-        </div>
-
-
-
-
+        <!--running time-->
         <div class="form-group">
             <label class="col-xs-2 col-sm-4 col-md-5 col-lg-5 control-label">몇 시간짜리 수업입니까?</label>
             <div class="col-xs-9 col-sm-5 col-md-3 col-lg-3">
@@ -143,6 +116,31 @@
                     <label>
                         <input type="radio" name="radio_running_time" id="radio_running_time4" value="3hour">
                         3시간
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!--수업일수-->
+        <div class="form-group">
+            <label class="col-xs-2 col-sm-4 col-md-5 col-lg-5 control-label">일주일에 수업이 몇 번?</label>
+            <div class="col-xs-9 col-sm-5 col-md-3 col-lg-3">
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="radio_lecture_amount" id="radio_lecture_amount1" value="1" checked="checked">
+                        1번
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="radio_lecture_amount" id="radio_lecture_amount2" value="2">
+                        2번
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="radio_lecture_amount" id="radio_lecture_amount3" value="3">
+                        3번
                     </label>
                 </div>
             </div>
@@ -197,5 +195,37 @@
         </div>
     </fieldset>
 </form>
+<div id="radioArea">
+    <input type="radio" name="radioName" value="M" />mWeb
+    <input type="radio" name="radioName" value="I" />inApp
+    <input type="radio" name="radioName" value="H" />HTML5
+</div>
+
+<input type="hidden" id="radioId" value="I">
+
+<br /><br />
+
+<div id="changeTextArea">
+    <div id="changeM">
+        <span>this is M area</span>
+        <p>mobile web</p>
+    </div>
+    <div id="changeI">
+        <span>this is I area</span>
+        <p>inapp</p>
+    </div>
+    <div id="changeH">
+        <span>this is H area</span>
+        <p>html5</p>
+    </div>
+</div>
+
+<!--<div id="buttonArea">-->
+    <!--<input type="button" id="changeUpdateRadio" value="서버에서 받은 버튼 값으로 radio 체크 위치 변경">-->
+<!--</div>-->
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="../static/js/create_lecture.js"></script>
+
 </body>
 </html>
