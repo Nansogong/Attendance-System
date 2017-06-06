@@ -56,6 +56,25 @@ class Lecture(db.Model):
                                     cls.lecture_code == lecture_code).first()
 
     @classmethod
+    def get_current_semester(cls):
+        from sqlalchemy import or_
+        import datetime
+
+        user_date = str(datetime.datetime.now())
+        date = user_date.split('-')
+        if date[1] in Lecture.SPRING:
+            return cls.query.filter(or_(cls.created.like(date[0] + '-03-%'), cls.created.like(date[0] + '-04-%'))).all()
+
+        elif date[1] in Lecture.SUMMER:
+            return cls.query.filter(or_(cls.created.like(date[0] + '-06-%'), cls.created.like(date[0] + '-07-%'))).all()
+
+        elif date[1] in Lecture.ANTUMN:
+            return cls.query.filter(or_(cls.created.like(date[0] + '-09-%'), cls.created.like(date[0] + '-10-%'))).all()
+
+        elif date[1] in Lecture.WINTER:
+            return cls.query.filter(or_(cls.created.like(date[0] + '-12-%'), cls.created.like(date[0] + '-01-%'))).all()
+
+    @classmethod
     def get_my_current_lecture(cls, user_date, professor_id):
         from sqlalchemy import or_
 

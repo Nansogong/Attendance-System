@@ -345,6 +345,22 @@ def test_create_lecture_code_dup_fail(mod, login_user):
 
     if not (login_user.type & User.PROFESSOR_TYPE):
         assert res.status_code == 403
+
+
+def test_search_lecture_get(mod, login_user):
+    from models.user import User
+
+    res = mod.get('/lectures/search_lecture', follow_redirects=True)
+
+    if login_user.type & User.STUDENT_TYPE:
+        assert res.status_code == 200
+        assert b'lecture_list' in res.data
+        assert b'apply' in res.data
+        assert '강의 목록'.encode() in res.data
+
+    if not login_user.type & User.STUDENT_TYPE:
+        assert res.status_code == 403
+
 def test_professor_list_get(mod, login_user):
     from models.user import User
 

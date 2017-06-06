@@ -161,6 +161,17 @@ def create_lecture():
         return redirect('/lectures')
 
 
+@mod.route('/lectures/search_lecture', methods=['GET'])
+@login_required
+def search_lecture():
+    user = check_user_permission(User.STUDENT_TYPE)
+
+    if not user:
+        return render_template('forbidden.html'), 403
+    if request.method == 'GET':
+        lectures = Lecture.get_current_semester()
+        return render_template('search_lecture.html', lectures=lectures)
+
 
 @mod.route('/professor_list', methods=['GET'])
 @login_required
