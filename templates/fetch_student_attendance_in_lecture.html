@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang="ko">
-<link rel = "stylesheet" href = "/static/css/bootstrap.css" />
+<html lang="en">
+<link rel="stylesheet" href="../static/css/bootstrap.css"/>
+<!--<link rel="stylesheet" href="../static/css/login.css"/>-->
 <head>
-    {% block head %}
     <meta charset="UTF-8">
-    <title>{{ title }}</title>
-    {% endblock %}
+    <title>fetch_student_attendance_in_lecture</title>
 </head>
 <body>
 <nav class="navbar navbar-default">
@@ -23,7 +22,7 @@
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+                <li class="active"><a href="#">Link <span class="sr-only" >(current)</span></a></li>
                 <li><a href="#">Link</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown
@@ -51,8 +50,42 @@
         </div>
     </div>
 </nav>
-{% block content %}
-{% endblock %}
+
+<div>
+    <p>난쏘공님의 출결현황</p>
+    <br />
+    <br />
+    <p>소프트웨어 공학</p>
+    <br />
+</div>
+
+
+<table class="table table-striped table-hover ">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>일자</th>
+        <th>출결 현황</th>
+    </tr>
+    </thead>
+    <tbody>
+    <script language="javascript" type="text/javascript">
+
+        var lecture_date = ["5.1","5.4","5.8","5.11","5.15","5.18","5.22","5.25"]; //수업일자
+        var attendance = ["출석","출석","출석","출석","출석","지각","결석","출석"]; //출결현황
+
+        for(i=0; i<lecture_date.length; i++){
+            document.write("<tr>");
+            document.write("<td>" + (i+1) + "</td>");
+            document.write("<td>" + lecture_date[i] + "</td>");
+            document.write("<td>" + attendance[i] + "</td>");
+            document.write("</tr>");
+        }
+
+    </script>
+    </tbody>
+</table>
+
 <script src="../static/js/jquery-1.12.4.js"></script>
 <script src="../static/js/bootstrap.js"></script>
 </body>
