@@ -203,6 +203,11 @@ class RegisterLecture(db.Model):
         elif date[1] in Lecture.WINTER:
             return cls.query.join(Lecture, Lecture.id == RegisterLecture.lecture_id).filter(or_(cls.created.like(date[0] + '-12-%'), cls.created.like(date[0] + '-01-%')),
                                                                                             Lecture.professor_id == professor_id).all()
+
+    @classmethod
+    def find_register_lecture_by_student_id_lecture_id(cls, student_id, lecture_id):
+        return cls.query.filter_by(student_id=student_id, lecture_id=lecture_id).first()
+
     def create(self):
         db.session.add(self)
         db.session.commit()
