@@ -106,3 +106,36 @@ def test_accept_professor_post_fail(professors):
 
         data = json.loads(res.data)
         assert data['msg'] == 'user_not_exist'
+
+
+def test_apply_lecture_post_success(mod, login_user):
+    from flask import json
+    from models.user import User
+    from models.lecture import RegisterLecture
+
+    if (login_user.type & User.STUDENT_TYPE) | (login_user.type & User.TA_TYPE):
+        lecture_code = 12364
+        status = 'apply'
+        res = mod.post('/apply_lecture', data=dict(
+            lecture_code=lecture_code,
+            status=status
+        ), follow_redirects=True)
+        data = json.loads(res.data)
+        assert data['status'] == RegisterLecture.APPLYING
+
+
+def test_apply_lecture_post_fail(mod, login_user):
+    from flask import json
+    from models.user import User
+
+    if (login_user.type & User.STUDENT_TYPE) | (login_user.type & User.TA_TYPE):
+        lecture_code = 12364
+        status = 'asdf'
+        res = mod.post('/apply_lecture', data=dict(
+            lecture_code=lecture_code,
+            status=status
+        ), follow_redirects=True)
+        data = json.loads(res.data)
+        assert data['status'] == 'request_error'
+
+

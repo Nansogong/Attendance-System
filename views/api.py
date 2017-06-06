@@ -35,3 +35,22 @@ def accept_professor():
             else:
                 flash('잘못된 요청입니다', 'error')
                 return jsonify(status='request_error')
+
+
+@mod.route('/apply_lecture', methods=['POST'])
+def apply_lecture():
+    if request.method == 'POST':
+        lecture_code = request.form.get('lecture_code')
+        status = request.form.get('status')
+
+        lecture = Lecture.find_by_lecture_code(lecture_code)
+        user = get_current_user()
+        if status == 'apply':
+            register_lecture = RegisterLecture(user.id, lecture.id, RegisterLecture.APPLYING)
+            register_lecture.create()
+            return jsonify(status=register_lecture.accept_status)
+
+        else:
+            flash('잘못된 요청입니다', 'error')
+            return jsonify(status='request_error')
+
