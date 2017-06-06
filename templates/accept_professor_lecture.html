@@ -53,7 +53,7 @@
 
 <form class="form-horizontal">
     <fieldset>
-        <table class="table table-striped table-hover ">
+        <table id="wait_accept" class="table table-striped table-hover ">
             <thead>
             <tr>
                 <th>#</th>
@@ -65,24 +65,24 @@
             <tbody>
             <tr>
                 <td>1</td>
-                <td>스캇</td>
-                <td>abcd@naver.com</td>
-                <td><button type="button" class="btn btn-primary" id="accept">승인</button></td>
-                <td><button type="button" class="btn btn-primary" id="reject">승인취소</button></td>
+                <td id="professor_name">스캇</td>
+                <td id="professor_email">abcd@naver.com</td>
+                <td><button type="button" class="btn btn-primary" onclick="accept()">승인</button></td>
+                <td><button type="button" class="btn btn-primary" onclick="reject()">승인취소</button></td>
             </tr>
             <tr>
                 <td>2</td>
-                <td>도경구</td>
-                <td>asdkfj@naver.com</td>
-                <td><button type="button" class="btn btn-primary">승인</button></td>
-                <td><button type="button" class="btn btn-primary">승인취소</button></td>
+                <td class="professor_name">도경구</td>
+                <td class="professor_email">asdkfj@naver.com</td>
+                <td><button type="button" class="btn btn-primary" >승인</button></td>
+                <td><button type="button" class="btn btn-primary" >승인취소</button></td>
             </tr>
             </tbody>
         </table>
 
         <div class="form-group">
             <div class="col-lg-10 col-xs-offset-2 col-sm-offset-4 col-md-offset-5 col-lg-offset-5">
-                <button type="button" class="btn btn-default">승인 완료</button>
+                <button type="button" class="btn btn-default" onclick="gotoPage()">승인 완료</button>
             </div>
         </div>
     </fieldset>
@@ -90,5 +90,6 @@
 
 <script src="../static/js/jquery-1.12.4.js"></script>
 <script src="../static/js/bootstrap.js"></script>
+<script src="../static/js/accept_prfessor_lecture.js"></script>
 </body>
 </html>

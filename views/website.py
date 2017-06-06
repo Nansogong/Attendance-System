@@ -31,10 +31,10 @@ def login():
         return redirect('/')
 
 
-@mod.route('/register', methods=['GET', 'POST'])
+@mod.route('/signup', methods=['GET', 'POST'])
 def register():
     if request.method == 'GET':
-        return render_template('register.html', title='Register')
+        return render_template('signuo.html', title='Register')
     elif request.method == 'POST':
         user_num = request.form.get('user_num', None)
         name = request.form.get('name', None)
