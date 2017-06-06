@@ -1,7 +1,8 @@
-from flask import Blueprint, request, jsonify, json, flash
+from flask import Blueprint, request, jsonify, flash
 
+from models.lecture import Lecture, RegisterLecture
 from models.user import User
-from views.decorator import login_required
+from views.website import get_current_user
 
 mod = Blueprint('api', __name__)
 
@@ -16,24 +17,6 @@ def find_by_email():
             return jsonify(user_exist=True)
 
 
-def json_list(l):
-    lst = []
-    for professor in l:
-        d = {'user_num': professor.user_num, 'name': professor.name, 'email': professor.email, 'status': professor.type}
-        lst.append(d)
-    json.dumps(lst)
-    return {'list': lst}
-
-
-@mod.route('/professor_list', methods=['GET'])
-def professor_list():
-    if request.method == 'GET':
-        """professor, accepted professor type순으로 리스트 설정"""
-        professors = User.get_all_filter_by_type(User.PROFESSOR_TYPE) + \
-                     User.get_all_filter_by_type(User.ACCEPTED_PROFESSOR_TYPE)
-        return jsonify(json_list(professors))
-
-
 @mod.route('/accept_professor', methods=['POST'])
 def accept_professor():
     if request.method == 'POST':
@@ -45,11 +28,51 @@ def accept_professor():
             return jsonify(msg='user_not_exist')
         else:
             if status == 'accept':
-                user.type = User.ACCEPTED_PROFESSOR_TYPE
+                user.type = User.PROFESSOR_TYPE
                 return jsonify(status=user.type)
             elif status == 'reject':
-                user.type = User.PROFESSOR_TYPE
+                user.type = User.PENDING_PROFESSOR_TYPE
                 return jsonify(status=user.type)
             else:
                 flash('잘못된 요청입니다', 'error')
                 return jsonify(status='request_error')
+
+
+@mod.route('/apply_lecture', methods=['POST'])
+def apply_lecture():
+    if request.method == 'POST':
+        lecture_code = request.form.get('lecture_code')
+        status = request.form.get('status')
+
+        lecture = Lecture.find_by_lecture_code(lecture_code)
+        user = get_current_user()
+        if status == 'apply':
+            register_lecture = RegisterLecture(user.id, lecture.id, RegisterLecture.APPLYING)
+            register_lecture.create()
+            return jsonify(status=register_lecture.accept_status)
+
+        else:
+            flash('잘못된 요청입니다', 'error')
+            return jsonify(status='request_error')
+
+
+@mod.route('/lectures/accept_student', methods=['POST'])
+def accept_student():
+    if request.method == 'POST':
+        lecture_code = request.form.get('lecture_code')
+        student_num = request.form.get('student_num')
+        status = request.form.get('status')
+
+        student = User.find_by_user_num(student_num)
+        lecture = Lecture.find_by_lecture_code(lecture_code)
+
+        register_lecture = RegisterLecture.find_register_lecture_by_student_id_lecture_id(student.id, lecture.id)
+        if status == 'accept':
+            register_lecture.accept_status = RegisterLecture.ACCEPT
+            return jsonify(status=register_lecture.accept_status)
+        elif status == 'reject':
+            register_lecture.accept_status = RegisterLecture.DENY
+            return jsonify(status=register_lecture.accept_status)
+        else:
+            flash('잘못된 요청입니다', 'error')
+            return jsonify(status='request_error')

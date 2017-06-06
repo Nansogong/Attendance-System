@@ -46,4 +46,4 @@ def test_get_all_filter_by_type_professor(professors):
     users = User.get_all_filter_by_type(User.PROFESSOR_TYPE)
     print(users)
 
-    assert all((user.type == User.PROFESSOR_TYPE) for user in users)
+    assert all((user.type & User.PROFESSOR_TYPE) for user in users)

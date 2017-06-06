@@ -5,6 +5,7 @@ from flask import render_template, Blueprint, request, redirect, session, flash
 
 from models.user import User
 from models.lecture import Lecture, LectureDay, RegisterLecture
+
 from views.decorator import login_required
 
 mod = Blueprint('website', __name__)
@@ -73,7 +74,8 @@ def register():
         password = request.form.get('password', None)
         fingerprint = request.form.get('fingerprint', None)
         type = request.form.get('type', None)
-
+        if type == str(User.PROFESSOR_TYPE):
+            type = User.PENDING_PROFESSOR_TYPE
         if user_num is None or name == '' or email == '' or password == '' or fingerprint == '' or type is None:
             flash('작성되지 않은 필드가 있습니다.', 'error')
             return redirect('/register')
@@ -138,7 +140,6 @@ def create_lecture():
                 flash('작성되지 않은 필드가 있습니다.', 'error')
                 return redirect('/lectures/create')
 
-
         if Lecture.check_term(str(datetime.datetime.now()), lecture_code):
             flash('이미 생성된 강의번호입니다.', 'error')
             return redirect('/lectures/create')
@@ -156,8 +157,49 @@ def create_lecture():
             lecture_day = LectureDay(start=start2, time=time2, day=day2, lecture_id=lecture.id)
 
             lecture_day.create()
-        
+
         return redirect('/lectures')
+
+
+@mod.route('/lectures/search_lecture', methods=['GET'])
+@login_required
+def search_lecture():
+    user = check_user_permission(User.STUDENT_TYPE)
+
+    if not user:
+        return render_template('forbidden.html'), 403
+    if request.method == 'GET':
+        lectures = Lecture.get_current_semester()
+        return render_template('search_lecture.html', lectures=lectures)
+
+
+@mod.route('/lectures/accept_student', methods=['GET'])
+@login_required
+def accept_student():
+    user = check_user_permission(User.PROFESSOR_TYPE)
+
+    if not user:
+        return render_template('forbidden.html'), 403
+    if request.method == 'GET':
+        user = get_current_user()
+        register_lectures = RegisterLecture.get_current_semester_professor(user.id)
+        return render_template('accept_student.html', register_lectures=register_lectures)
+
+
+@mod.route('/professor_list', methods=['GET'])
+@login_required
+def professor_list():
+    user = check_user_permission(User.PROFESSOR_TYPE)
+
+    if not user:
+        return render_template('forbidden.html'), 403
+    if request.method == 'GET':
+        """
+        professor, accepted professor type순으로 리스트 설정
+        """
+        professors = User.get_all_filter_by_type(User.PROFESSOR_TYPE) + \
+                     User.get_all_filter_by_type(User.PENDING_PROFESSOR_TYPE)
+        return render_template('accept_professor.html', professors=professors)
 
 
 def check_user_permission(required_type):
