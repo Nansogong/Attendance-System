@@ -361,6 +361,23 @@ def test_search_lecture_get(mod, login_user):
     if not login_user.type & User.STUDENT_TYPE:
         assert res.status_code == 403
 
+
+def test_accept_student_get(mod, login_user):
+    from models.user import User
+
+    res = mod.get('/lectures/accept_student', follow_redirects=True)
+
+    if login_user.type & User.PROFESSOR_TYPE:
+        assert res.status_code == 200
+        assert b'student' in res.data
+        assert b'accept' in res.data
+        assert b'reject' in res.data
+        assert '학생 목록'.encode() in res.data
+
+    if not login_user.type & User.PROFESSOR_TYPE:
+        assert res.status_code == 403
+
+
 def test_professor_list_get(mod, login_user):
     from models.user import User
 
