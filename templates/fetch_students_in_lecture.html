@@ -1,38 +1,40 @@
 {% extends "base.html" %}
 {% block content %}
-<form class="form-horizontal">
-    <div class="form-group">
-        <br />
-        <p>소프트웨어 공학</p>
-        <br />
-    </div>
-    <div class="form-group">
-        <table class="table table-striped table-hover ">
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>학번</th>
-                <th>이름</th>
-                <th>출결 현황</th>
-            </tr>
-            </thead>
-            <tbody>
-            <script language="javascript" type="text/javascript">
+<div>
+    <form class="form-horizontal">
+        <div class="form-group">
+            <br />
+            <p>소프트웨어 공학</p>
+            <br />
+        </div>
+        <div class="form-group">
+            <table class="table table-striped table-hover ">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>학번</th>
+                    <th>이름</th>
+                    <th>출결 현황</th>
+                </tr>
+                </thead>
+                <tbody>
+                <script language="javascript" type="text/javascript">
 
-                var num = 15; //학생수 불러오면 될 것
+                    var num = 15; //학생수 불러오면 될 것
 
-                for(i=1; i<=num; i++){
-                    document.write("<tr>");
-                    document.write("<td>" + i + "</td>");
-                    document.write("<td>" + "Column content" + "</td>");
-                    document.write("<td>" + "Column content" + "</td>");
-                    document.write("<td>" + "Column content" + "</td>");
-                    document.write("</tr>");
-                }
+                    for(i=1; i<=num; i++){
+                        document.write("<tr>");
+                        document.write("<td>" + i + "</td>");
+                        document.write("<td>" + "Column content" + "</td>");
+                        document.write("<td>" + "Column content" + "</td>");
+                        document.write("<td>" + "Column content" + "</td>");
+                        document.write("</tr>");
+                    }
 
-            </script>
-            </tbody>
-        </table>
-    </div>
-</form>
+                </script>
+                </tbody>
+            </table>
+        </div>
+    </form>
+</div>
 {% endblock %}

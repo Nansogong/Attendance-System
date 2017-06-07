@@ -6,7 +6,7 @@
         <div class="form-group">
             <label for="input_email" class="col-xs-2 col-sm-4 col-md-5 col-lg-5 control-label">Email</label>
             <div class="col-xs-9 col-sm-5 col-md-3 col-lg-3">
-                <input type="text" class="form-control" id="input_email" placeholder="Email">
+                <input type="text" class="form-control" id="input_email" name="input_email" placeholder="Email">
             </div>
             <div>
                 <button type="button" class="btn btn-default" id="email_dupcheck">중복검사</button>
@@ -16,51 +16,51 @@
         <div class="form-group">
             <label for="input_password" class="col-xs-2 col-sm-4 col-md-5 col-lg-5 control-label">Password</label>
             <div class="col-xs-9 col-sm-5 col-md-3 col-lg-3">
-                <input type="password" class="form-control" id="input_password" placeholder="Password">
+                <input type="password" class="form-control" id="input_password" name="input_password" placeholder="Password">
             </div>
         </div>
         <div class="form-group">
             <label for="input_password2" class="col-xs-2 col-sm-4 col-md-5 col-lg-5 control-label">Password 재확인</label>
             <div class="col-xs-9 col-sm-5 col-md-3 col-lg-3">
-                <input type="password" class="form-control" id="input_password2" placeholder="Password">
+                <input type="password" class="form-control" id="input_password2" name="input_password2" placeholder="Password">
             </div>
         </div>
 
         <div class="form-group">
             <label for="input_name" class="col-xs-2 col-sm-4 col-md-5 col-lg-5 control-label">이름</label>
             <div class="col-xs-9 col-sm-5 col-md-3 col-lg-3">
-                <input type="text" class="form-control" id="input_name" placeholder="Name">
+                <input type="text" class="form-control" id="input_name" name="input_name" placeholder="Name">
             </div>
         </div>
 
         <div class="form-group">
             <label for="input_usernum" class="col-xs-2 col-sm-4 col-md-5 col-lg-5 control-label">학번</label>
             <div class="col-xs-9 col-sm-5 col-md-3 col-lg-3">
-                <input type="text" class="form-control" id="input_usernum" placeholder="학생은 학번을, 교수는 교사번호를">
+                <input type="text" class="form-control" id="input_usernum" name="input_usernum" placeholder="학생은 학번을, 교수는 교사번호를">
             </div>
         </div>
 
-        <div class="form-group">
-            <label for="input_finger_print" class="col-xs-2 col-sm-4 col-md-5 col-lg-5 control-label">Email</label>
-            <div class="col-xs-9 col-sm-5 col-md-3 col-lg-3">
-                <input type="text" class="form-control" id="input_finger_print" placeholder="지문등록">
-            </div>
-        </div>
+        <!--<div class="form-group">-->
+            <!--<label for="input_finger_print" class="col-xs-2 col-sm-4 col-md-5 col-lg-5 control-label">Email</label>-->
+            <!--<div class="col-xs-9 col-sm-5 col-md-3 col-lg-3">-->
+                <!--<input type="text" class="form-control" id="input_finger_print" placeholder="지문등록">-->
+            <!--</div>-->
+        <!--</div>-->
 
         <div class="form-group">
             <label class="col-xs-2 col-sm-4 col-md-5 col-lg-5 control-label">신분</label>
             <div class="col-xs-9 col-sm-5 col-md-3 col-lg-3">
                 <div class="radio">
                     <label>
-                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
+                        <input type="radio" name="optionsRadios" id="optionsRadios1" name="status" value="option1" checked="">
                         student
                     </label>
                     <label>
-                        <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                        <input type="radio" name="optionsRadios" id="optionsRadios2" name="status" value="option2">
                         professor
                     </label>
                     <label>
-                        <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">
+                        <input type="radio" name="optionsRadios" id="optionsRadios3" name="status" value="option3">
                         TA
                     </label>
                 </div>
@@ -68,7 +68,7 @@
             <div class="form-group">
                 <label for="select" class="col-xs-2 col-sm-4 col-md-5 col-lg-5 control-label">연구실(professor, TA일 경우만)</label>
                 <div class="col-xs-9 col-sm-5 col-md-3">
-                    <select multiple="" class="form-control" id="select">
+                    <select multiple="" class="form-control" id="select" name="select">
                         <option>스캇형연구실</option>
                         <option>마마마</option>
                         <option>태수연구실</option>
@@ -80,8 +80,8 @@
         </div>
         <div class="form-group">
             <div class="col-lg-10 col-xs-offset-2 col-sm-offset-4 col-md-offset-5 col-lg-offset-5">
-                <button type="submit" class="btn btn-primary">Submit</button>
-                <button type="reset" class="btn btn-default">Cancel</button>
+                <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+                <button type="reset" name="cancel" class="btn btn-default">Cancel</button>
             </div>
         </div>
     </fieldset>

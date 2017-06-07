@@ -1,56 +1,58 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="form-group">
-    <h2>Profile</h2>
-    <dl class="dl-horizontal">
-        <dt>학번</dt>
-        <dd>20100363636</dd>
-        <dt>이름</dt>
-        <dd>아무개</dd>
-        <dt>이메일</dt>
-        <dd>이메일요거다</dd>
-        <dt>타입</dt>
-        <dd>학생</dd>
-        <!--todo :: 이슈 : 비밀번호 수정버튼 만들어야 함 -->
-        <!--todo :: 타입 고쳐야함 -->
-        <!--todo :: 만들때 이메일 형식체크해야됨 -->
-    </dl>
-</div>
-<div class="form-group">
-    <h2>학생</h2>
-    <ul>
-        <li>
-            <h3>신청된 강의 목록</h3>
-            <ul>
-                <li><a href="#">웹앱 / 과목코드 / 교수님 / 수업시작 : 월 09:00 수 09:00 / 90분 수업</a></li>
-                <li><a href="#">소공 / 과목코드 / 교수님 / 수업시작 : 화 09:00 목 09:00 / 90분 수업</a></li>
-            </ul>
-        </li>
-        <li><a class="btn btn-primary">강의찾기</a>
-            <a class="btn btn-primary">출석하기</a>
-            <a class="btn btn-danger">강의삭제</a></li>
-    </ul>
-</div>
-<div class="form-group">
-    <h2>교수</h2>
-    <ul>
-        <li>
-            <h3>등록한 강의 목록</h3>
-            <ul>
-                <li><a href="#">웹앱 / 과목코드 / 교수님 / 수업시작 : 월 09:00 수 09:00 / 90분 수업</a></li>
-                <li><a href="#">소공 / 과목코드 / 교수님 / 수업시작 : 화 09:00 목 09:00 / 90분 수업</a></li>
-            </ul>
-        </li>
-        <li><a href='#' class="btn btn-primary">강의등록</a></li>
-        <!--#에 해당 도메인 들어가면됨-->
-        <li><a href='#' class="btn btn-primary">교수승인</a></li>
-        <!--#에 해당 도메인 들어가면됨-->
-    </ul>
-</div>
-<div class="form-group">
-    <h2>조교</h2>
-    <ul>
-        <li><a class="btn btn-primary">강의승인</a></li>
-    </ul>
+<div class="form-horizontal">
+    <div class="form-group">
+        <h2>Profile</h2>
+        <dl class="dl-horizontal">
+            <dt>학번</dt>
+            <dd>20100363636</dd>
+            <dt>이름</dt>
+            <dd>아무개</dd>
+            <dt>이메일</dt>
+            <dd>이메일요거다</dd>
+            <dt>타입</dt>
+            <dd>학생</dd>
+            <!--todo :: 이슈 : 비밀번호 수정버튼 만들어야 함 -->
+            <!--todo :: 타입 고쳐야함 -->
+            <!--todo :: 만들때 이메일 형식체크해야됨 -->
+        </dl>
+    </div>
+    <div class="form-group">
+        <h2>학생</h2>
+        <ul>
+            <li>
+                <h3>신청된 강의 목록</h3>
+                <ul>
+                    <li><a href="#">웹앱 / 과목코드 / 교수님 / 수업시작 : 월 09:00 수 09:00 / 90분 수업</a></li>
+                    <li><a href="#">소공 / 과목코드 / 교수님 / 수업시작 : 화 09:00 목 09:00 / 90분 수업</a></li>
+                </ul>
+            </li>
+            <li><a class="btn btn-primary">강의찾기</a>
+                <a class="btn btn-primary">출석하기</a>
+                <a class="btn btn-danger">강의삭제</a></li>
+        </ul>
+    </div>
+    <div class="form-group">
+        <h2>교수</h2>
+        <ul>
+            <li>
+                <h3>등록한 강의 목록</h3>
+                <ul>
+                    <li><a href="#">웹앱 / 과목코드 / 교수님 / 수업시작 : 월 09:00 수 09:00 / 90분 수업</a></li>
+                    <li><a href="#">소공 / 과목코드 / 교수님 / 수업시작 : 화 09:00 목 09:00 / 90분 수업</a></li>
+                </ul>
+            </li>
+            <li><a href='#' class="btn btn-primary">강의등록</a></li>
+            <!--#에 해당 도메인 들어가면됨-->
+            <li><a href='#' class="btn btn-primary">교수승인</a></li>
+            <!--#에 해당 도메인 들어가면됨-->
+        </ul>
+    </div>
+    <div class="form-group">
+        <h2>조교</h2>
+        <ul>
+            <li><a class="btn btn-primary">강의승인</a></li>
+        </ul>
+    </div>
 </div>
 {% endblock %}

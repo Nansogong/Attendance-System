@@ -27,6 +27,6 @@ function submit_login() {
     form.submit();
 }
 
-function submit_signup(){
+function submit_register(){
     location.href="../templates/signup.html";
 }

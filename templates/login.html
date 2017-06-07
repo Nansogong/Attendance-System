@@ -1,35 +1,37 @@
 {% extends "base.html" %}
 {% block content %}
-<form class ="form-horizontal">
-    <fieldset>
-        <legend>로그인</legend>
-        <div class="form-group">
-            <!--<label for="inputID" class="col-lg-2 control-label">ID</label>-->
-            <label for="input_email" class="col-xs-2 col-sm-4 col-md-5 col-lg-5 control-label">email</label>
-            <!--<div class="col-lg-10">-->
-            <div class="col-xs-9 col-sm-5 col-md-3 col-lg-3">
-                <input type="text" class="form-control" id="input_email" placeholder="아이디를 입력하세요" size="20">
+<div>
+    <form class ="form-horizontal">
+        <fieldset>
+            <legend>로그인</legend>
+            <div class="form-group">
+                <!--<label for="inputID" class="col-lg-2 control-label">ID</label>-->
+                <label for="input_email" class="col-xs-2 col-sm-4 col-md-5 col-lg-5 control-label">email</label>
+                <!--<div class="col-lg-10">-->
+                <div class="col-xs-9 col-sm-5 col-md-3 col-lg-3">
+                    <input type="text" class="form-control" id="input_email" name="input_email" placeholder="아이디를 입력하세요" size="20">
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label for="input_password" class="col-xs-2 col-sm-4 col-md-5 col-lg-5 control-label">password</label>
-            <div class="col-xs-9 col-sm-5 col-md-3 col-lg-3">
-                <input type="password" class="form-control" id="input_password" placeholder="Password를 입력하세요">
+            <div class="form-group">
+                <label for="input_password" class="col-xs-2 col-sm-4 col-md-5 col-lg-5 control-label">password</label>
+                <div class="col-xs-9 col-sm-5 col-md-3 col-lg-3">
+                    <input type="password" class="form-control" id="input_password" name="input_password" placeholder="Password를 입력하세요">
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <div class="col-lg-6 col-xs-offset-2 col-sm-offset-4 col-md-offset-5 col-lg-offset-5">
-                <button type="button" class="btn btn-primary" onclick="submit_login();">로그인</button>
-                <button type="button" class="btn btn-default" onclick="submit_signup();">회원가입</button>
+            <div class="form-group">
+                <div class="col-lg-6 col-xs-offset-2 col-sm-offset-4 col-md-offset-5 col-lg-offset-5">
+                    <button type="button" name="login" class="btn btn-primary" onclick="submit_login();">로그인</button>
+                    <button type="button" name="register" class="btn btn-default" onclick="submit_register();">회원가입</button>
+                </div>
             </div>
-        </div>
-        <!--<div class="form-group">-->
-            <!--<div class="col-lg-6 col-xs-offset-2 col-sm-offset-4 col-md-offset-5 col-lg-offset-5">-->
-                <!--<button type="button" class="btn btn-primary" onclick="output_email()">emal출력하기</button>-->
-                <!--<button type="button" class="btn btn-default" onclick="output_password()">pw출력하기</button>-->
+            <!--<div class="form-group">-->
+                <!--<div class="col-lg-6 col-xs-offset-2 col-sm-offset-4 col-md-offset-5 col-lg-offset-5">-->
+                    <!--<button type="button" class="btn btn-primary" onclick="output_email()">emal출력하기</button>-->
+                    <!--<button type="button" class="btn btn-default" onclick="output_password()">pw출력하기</button>-->
+                <!--</div>-->
             <!--</div>-->
-        <!--</div>-->
-    </fieldset>
-</form>
+        </fieldset>
+    </form>
+</div>
 <script src="../static/js/login_test2.js"></script>
 {% endblock %}
