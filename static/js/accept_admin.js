@@ -1,5 +1,5 @@
 /**
- * Created by seominkyu on 2017. 6. 5..
+ * Created by seominkyu on 2017. 6. 7..
  */
 
 var professor_email;
@@ -36,10 +36,10 @@ function accept()
 }
 
 function reject(){
-    // 값확인부분 , 이부분 다시 작성해야함
+    // 이부분 다시 작성해야함
     alert("name : "+ professor_name +" 입니다");
     alert("email : "+ professor_email +" 입니다");
 }
 function gotoPage(){
-    location.href="../templates/view_lecture.html";
+    location.href="../templates/admin.html";
 }
