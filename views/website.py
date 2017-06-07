@@ -66,7 +66,7 @@ def logout():
 @mod.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'GET':
-        return render_template('register.html', title='Register')
+        return render_template('register.html', title='회원가입')
     elif request.method == 'POST':
         user_num = request.form.get('user_num', None)
         name = request.form.get('name', None)
