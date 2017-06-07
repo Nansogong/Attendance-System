@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
 <form class ="form-horizontal">
+    <fieldset>
+        <legend>로그인</legend>
         <div class="form-group">
             <!--<label for="inputID" class="col-lg-2 control-label">ID</label>-->
             <label for="input_email" class="col-xs-2 col-sm-4 col-md-5 col-lg-5 control-label">email</label>
@@ -21,13 +23,13 @@
                 <button type="button" class="btn btn-default" onclick="submit_signup();">회원가입</button>
             </div>
         </div>
-        <div class="form-group">
-            <div class="col-lg-6 col-xs-offset-2 col-sm-offset-4 col-md-offset-5 col-lg-offset-5">
-                <button type="button" class="btn btn-primary" onclick="output_email()">emal출력하기</button>
-                <button type="button" class="btn btn-default" onclick="output_password()">pw출력하기</button>
-            </div>
-        </div>
-
+        <!--<div class="form-group">-->
+            <!--<div class="col-lg-6 col-xs-offset-2 col-sm-offset-4 col-md-offset-5 col-lg-offset-5">-->
+                <!--<button type="button" class="btn btn-primary" onclick="output_email()">emal출력하기</button>-->
+                <!--<button type="button" class="btn btn-default" onclick="output_password()">pw출력하기</button>-->
+            <!--</div>-->
+        <!--</div>-->
+    </fieldset>
 </form>
 <script src="../static/js/login_test2.js"></script>
 {% endblock %}

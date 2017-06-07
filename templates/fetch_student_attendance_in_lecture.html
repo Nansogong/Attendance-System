@@ -1,37 +1,39 @@
 {% extends "base.html" %}
 {% block content %}
-<div>
-    <p>난쏘공님의 출결현황</p>
-    <br />
-    <br />
-    <p>소프트웨어 공학</p>
-    <br />
-</div>
+<form class="form-horizontal">
+    <div class="form-group">
+        <p>난쏘공님의 출결현황</p>
+        <br />
+        <br />
+        <p>소프트웨어 공학</p>
+        <br />
+    </div>
+    <div class="form-group">
+        <table class="table table-striped table-hover ">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>일자</th>
+                <th>출결 현황</th>
+            </tr>
+            </thead>
+            <tbody>
+            <script language="javascript" type="text/javascript">
 
+                var lecture_date = ["5.1","5.4","5.8","5.11","5.15","5.18","5.22","5.25"]; //수업일자
+                var attendance = ["출석","출석","출석","출석","출석","지각","결석","출석"]; //출결현황
 
-<table class="table table-striped table-hover ">
-    <thead>
-    <tr>
-        <th>#</th>
-        <th>일자</th>
-        <th>출결 현황</th>
-    </tr>
-    </thead>
-    <tbody>
-    <script language="javascript" type="text/javascript">
+                for(i=0; i<lecture_date.length; i++){
+                    document.write("<tr>");
+                    document.write("<td>" + (i+1) + "</td>");
+                    document.write("<td>" + lecture_date[i] + "</td>");
+                    document.write("<td>" + attendance[i] + "</td>");
+                    document.write("</tr>");
+                }
 
-        var lecture_date = ["5.1","5.4","5.8","5.11","5.15","5.18","5.22","5.25"]; //수업일자
-        var attendance = ["출석","출석","출석","출석","출석","지각","결석","출석"]; //출결현황
-
-        for(i=0; i<lecture_date.length; i++){
-            document.write("<tr>");
-            document.write("<td>" + (i+1) + "</td>");
-            document.write("<td>" + lecture_date[i] + "</td>");
-            document.write("<td>" + attendance[i] + "</td>");
-            document.write("</tr>");
-        }
-
-    </script>
-    </tbody>
-</table>
+            </script>
+            </tbody>
+        </table>
+    </div>
+</form>
 {% endblock %}
