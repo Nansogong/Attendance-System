@@ -2,7 +2,7 @@
 * Created by seominkyu on 2017. 6. 2..
 */
 
-function submit_login() {
+$('login').click(function(e) {
 
     var email_data = document.getElementById("input_email").value;
     var password_data = document.getElementById("input_password").value;
@@ -25,8 +25,4 @@ function submit_login() {
     form.appendChild(hiddenField);
 
     form.submit();
-}
-
-function submit_signup(){
-    location.href="../templates/signup.html";
-}
+});
