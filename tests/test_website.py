@@ -111,7 +111,7 @@ def test_register_post_success():
         assert b'email' in res.data
         assert b'password' in res.data
         assert not b'user_num' in res.data
-        assert not b'name' in res.data
+        assert b'name' in res.data
         assert User.find_by_email(email)
         assert User.find_by_user_num(user_num)
 
@@ -141,7 +141,7 @@ def test_register_post_professor_type_to_pending_professor():
         assert b'email' in res.data
         assert b'password' in res.data
         assert not b'user_num' in res.data
-        assert not b'name' in res.data
+        assert b'name' in res.data
         assert User.find_by_email(email)
         assert User.find_by_user_num(user_num)
         assert user.type == User.PENDING_PROFESSOR_TYPE
