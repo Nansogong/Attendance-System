@@ -231,7 +231,7 @@ def test_create_lecture_get(mod, login_user):
 
     if login_user.type & User.PROFESSOR_TYPE:
         assert res.status_code == 200
-        assert b'create' in res.data
+        assert b'lecture_name' in res.data
         assert b'lecture_code' in res.data
         assert b'time' in res.data
         assert b'start' in res.data
@@ -298,7 +298,7 @@ def test_create_lecture_blank_fail(mod, login_user):
 
     if login_user.type & User.PROFESSOR_TYPE:
         assert res.status_code == 200
-        assert b'create' in res.data
+        assert b'lecture_name' in res.data
         assert b'lecture_code' in res.data
         assert b'time' in res.data
         assert b'start' in res.data
@@ -338,7 +338,7 @@ def test_create_lecture_code_dup_fail(mod, login_user):
 
     if login_user.type & User.PROFESSOR_TYPE:
         assert res.status_code == 200
-        assert b'create' in res.data
+        assert b'lecture_name' in res.data
         assert b'lecture_code' in res.data
         assert b'time' in res.data
         assert b'start' in res.data
