@@ -111,7 +111,7 @@ def test_register_post_success():
         assert b'email' in res.data
         assert b'password' in res.data
         assert not b'user_num' in res.data
-        assert not b'name' in res.data
+        assert b'name' in res.data
         assert User.find_by_email(email)
         assert User.find_by_user_num(user_num)
 
@@ -141,7 +141,7 @@ def test_register_post_professor_type_to_pending_professor():
         assert b'email' in res.data
         assert b'password' in res.data
         assert not b'user_num' in res.data
-        assert not b'name' in res.data
+        assert b'name' in res.data
         assert User.find_by_email(email)
         assert User.find_by_user_num(user_num)
         assert user.type == User.PENDING_PROFESSOR_TYPE
@@ -205,8 +205,8 @@ def test_admin_get():
 
 def test_accept_professor_get():
     with app.test_client() as mod:
-        res = mod.get('/accept_professor')
-        assert b'professor' in res.data
+        res = mod.get('/accept_professor_lecture')
+        # assert b'professor' in res.data
         assert b'accept' in res.data
         assert b'reject' in res.data
 
@@ -231,7 +231,7 @@ def test_create_lecture_get(mod, login_user):
 
     if login_user.type & User.PROFESSOR_TYPE:
         assert res.status_code == 200
-        assert b'create' in res.data
+        assert b'lecture_name' in res.data
         assert b'lecture_code' in res.data
         assert b'time' in res.data
         assert b'start' in res.data
@@ -298,7 +298,7 @@ def test_create_lecture_blank_fail(mod, login_user):
 
     if login_user.type & User.PROFESSOR_TYPE:
         assert res.status_code == 200
-        assert b'create' in res.data
+        assert b'lecture_name' in res.data
         assert b'lecture_code' in res.data
         assert b'time' in res.data
         assert b'start' in res.data
@@ -338,7 +338,7 @@ def test_create_lecture_code_dup_fail(mod, login_user):
 
     if login_user.type & User.PROFESSOR_TYPE:
         assert res.status_code == 200
-        assert b'create' in res.data
+        assert b'lecture_name' in res.data
         assert b'lecture_code' in res.data
         assert b'time' in res.data
         assert b'start' in res.data
