@@ -8,12 +8,12 @@ import config
 deploy = os.getenv('DEPLOY', 'local').title()
 app = Flask(__name__)
 app.config.from_object('config.{}Config'.format(deploy))
+app.app_context().push()
 
-db = SQLAlchemy(app)
-
-from views import website
+from views import website, api
 
 app.register_blueprint(website.mod)
+app.register_blueprint(api.mod)
 
 if not app.debug:
     file_handler = FileHandler('error.log')

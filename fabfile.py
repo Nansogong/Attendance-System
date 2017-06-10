@@ -1,14 +1,17 @@
+from pprint import pprint
+
 import os
-from fabric.context_managers import cd, settings
+from fabric.context_managers import cd, settings, prefix
 from fabric.decorators import task, roles
 
 from fabric.operations import local, run
 from fabric.state import env
 from fabric.tasks import execute
+from flask_sqlalchemy import SQLAlchemy
 
 import config
-from app import db
-from models import user
+from app import app
+
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 env_name = 'local'
@@ -76,6 +79,33 @@ def stop_server():
 
 @task
 def init_db():
+    import models.user, models.lecture
+    from models import db
+
     if env_name is not 'local':
-        run('echo $DEPLOY')
+        with cd('Attendance-System'), prefix('source venv/bin/activate'):
+            run('fab {} init_db'.format(env_name))
+
+    db.drop_all()
     db.create_all()
+
+
+@task
+def deploy():
+    with settings(warn_only=True):
+        with cd('Attendance-System'), prefix('source venv/bin/activate'):
+            global env_name
+            env_name = 'master' if env_name == 'live' else env_name
+            run('git stash')
+            run('git checkout {}'.format(env_name))
+            run('git pull origin {}'.format(env_name))
+            run('pip install -r requirements.txt')
+            runserver()
+
+
+@task
+@roles('localhost')
+def test():
+    with settings(warn_only=True):
+        with prefix('source venv/bin/activate'):
+            local('pytest tests/')
